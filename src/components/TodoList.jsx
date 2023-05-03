@@ -6,7 +6,9 @@ const TodoList = ({ currentDate, data }) => {
   return (
     <div className={styles["todolist-container"]}>
       <span>리스트</span>
-      <TodoItem />
+      {data?.todo.map((item) => (
+        <TodoItem key={item.id} item={item} />
+      ))}
     </div>
   );
 };

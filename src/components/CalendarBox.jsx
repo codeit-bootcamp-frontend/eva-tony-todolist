@@ -6,7 +6,6 @@ import moment from "moment";
 const CalendarBox = ({ date: mockdate, currentDate, onChange }) => {
   return (
     <>
-      {console.log(typeof onChange)}
       <Calendar
         onChange={onChange}
         formatDay={(locale, date) => moment(date).format("DD")}

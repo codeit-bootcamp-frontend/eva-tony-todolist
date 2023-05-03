@@ -33,7 +33,7 @@ const HomePage = () => {
         <img className={styles.logo} src={CodoitLogo} />
       </div>
       <CalendarBox date={date} currentDate={currentDate} onChange={onChange} />
-      <TodoList currentDate={currentDate} data={filteredTodoList} />
+      <TodoList currentDate={currentDate} data={filteredTodoList()} />
     </div>
   );
 };
