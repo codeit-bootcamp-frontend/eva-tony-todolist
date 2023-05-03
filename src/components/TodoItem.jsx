@@ -1,10 +1,10 @@
 import React from "react";
 
 const TodoItem = ({ item }) => {
+  const { isDone, content } = item;
   return (
     <div>
-      <p>{item.isDone}</p>
-      <p>{item.content}</p>
+      <p>{content}</p>
     </div>
   );
 };

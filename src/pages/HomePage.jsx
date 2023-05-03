@@ -7,24 +7,34 @@ import CalendarBox from "@components/CalendarBox";
 import useFetchData from "@hooks/useFetchData";
 import TodoList from "@components/TodoList";
 import parseDateToString from "@library/parseDateToString";
+import AddButton from "@components/AddButton";
 
 const HomePage = () => {
   const { data, isLoading, error } = useFetchData("/src/data/dummyData.json");
-  const [date, setDate] = useState([]);
-
-  const [currentDate, onChange] = useState(new Date());
+  const [dateList, setDateList] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(new Date()); // 오늘값
+  const [selectedDateTodoList, setSelectedDateTodoList] = useState();
+  console.log(data, dateList, selectedDate, selectedDateTodoList);
 
   useEffect(() => {
     getDate();
   }, [data]);
 
+  useEffect(() => {
+    filteredTodoList();
+    console.log(selectedDate);
+  }, [selectedDate, data]);
+
   const getDate = () => {
-    setDate(data.map((item) => item.date));
+    setDateList(data.map((item) => item.date));
   };
 
   const filteredTodoList = () => {
-    const currentDateString = parseDateToString(currentDate);
-    return data.find((item) => item.date === currentDateString);
+    const currentDateString = parseDateToString(selectedDate);
+    const filteredTodoData = data.find(
+      (item) => item.date === currentDateString
+    );
+    setSelectedDateTodoList(filteredTodoData);
   };
 
   return (
@@ -32,8 +42,13 @@ const HomePage = () => {
       <div className={styles["logo-wrap"]}>
         <img className={styles.logo} src={CodoitLogo} />
       </div>
-      <CalendarBox date={date} currentDate={currentDate} onChange={onChange} />
-      <TodoList currentDate={currentDate} data={filteredTodoList()} />
+      <CalendarBox
+        dateList={dateList}
+        selectedDate={selectedDate}
+        onChange={setSelectedDate}
+      />
+      <TodoList selectedDate={selectedDate} data={selectedDateTodoList} />
+      <AddButton onAddItem={setSelectedDateTodoList} />
     </div>
   );
 };
