@@ -1,18 +1,14 @@
-import React, { useState, useCallback } from "react";
+import React from "react";
 import Calendar from "react-calendar";
 import "@components/CalendarBox.css";
-import dummyData from "@data/dummyData";
 import moment from "moment";
 
 const CalendarBox = ({ date: mockdate, currentDate, onChange }) => {
-  const handleDateChange = useCallback((date) => {
-    // 왜 props로 받아온 setter를 함수로 감싸서 props로 넘겨야하는지?
-    onChange(date);
-  }, []);
   return (
     <>
+      {console.log(typeof onChange)}
       <Calendar
-        onChange={handleDateChange}
+        onChange={onChange}
         formatDay={(locale, date) => moment(date).format("DD")}
         value={currentDate}
         className="mx-auto w-full text-sm border-b"
