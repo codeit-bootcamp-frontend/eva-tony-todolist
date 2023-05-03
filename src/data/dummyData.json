@@ -1,0 +1,40 @@
+{
+  "dummyData": [
+    {
+      "id": "1",
+      "date": "2023-05-03",
+      "todo": [
+        {
+          "isDone": "false",
+          "content": "강의 듣기"
+        },
+        {
+          "isDone": "true",
+          "content": "알고리즘"
+        },
+        {
+          "isDone": "false",
+          "content": "데일리 미션"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "date": "2023-05-15",
+      "todo": [
+        {
+          "isDone": "false",
+          "content": "스크럼"
+        },
+        {
+          "isDone": "true",
+          "content": "알고리즘"
+        },
+        {
+          "isDone": "false",
+          "content": "밥 먹기"
+        }
+      ]
+    }
+  ]
+}
