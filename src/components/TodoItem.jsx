@@ -4,7 +4,7 @@ const TodoItem = ({ item }) => {
   const { isDone, content } = item;
   return (
     <div>
-      <p>{content}</p>
+      <p style={{ border: "1px solid black" }}>{content}</p>
     </div>
   );
 };
