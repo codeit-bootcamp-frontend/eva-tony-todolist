@@ -1,23 +1,20 @@
 import React, { useRef } from "react";
 
-const AddButton = ({ selectedDay, onAddItem, flag }) => {
-  const length = selectedDay?.todo?.length;
-  let todoItemId = useRef(length);
+const AddButton = ({ selectedTodoList, onAddItem }) => {
+  let length = selectedTodoList?.length;
+
+  // selectedTodoList가 []일 때 length가 0이라 생기는 키 중복 이슈
+  let todoItemId = length ? useRef(length) : null;
 
   const handleClick = () => {
-    todoItemId.current++;
+    // if (!length) return;
+    // todoItemId.current++;
     const newItem = {
-      id: todoItemId.current,
+      id: new Date(),
       isDone: false,
       content: "",
     };
-
-    // onAddItem([newItem, ...selectedDateTodoList]);
-    // onAddItem([newItem, ...selectedDay]);
-    onAddItem((prevState) => ({
-      ...prevState,
-      todo: [...prevState.todo, newItem],
-    }));
+    onAddItem([newItem, ...selectedTodoList]);
   };
 
   return (

@@ -7,12 +7,14 @@ import useHttp from "@hooks/useHttp";
 import CalendarBox from "@components/CalendarBox";
 import TodoList from "@components/TodoList";
 import parseDateToString from "@library/parseDateToString";
+import AddButton from "@components/AddButton";
 
 const HomePage = () => {
   const { data: dateList, isLoading, error, sendRequest } = useHttp();
   const [dotDates, setDotDates] = useState();
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedTodoList, setSelectedTodoList] = useState([]);
+
   // console.log(parseDateToString(new Date()));
 
   useEffect(() => {
@@ -43,7 +45,8 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    setSelectedTodoList(filteredTodoList());
+    const temp = filteredTodoList();
+    temp ? setSelectedTodoList(temp) : setSelectedTodoList([]);
   }, [selectedDate, dateList]);
 
   return (
@@ -56,7 +59,14 @@ const HomePage = () => {
         selectedDate={selectedDate}
         onSelectedDate={setSelectedDate}
       />
-      <TodoList selectedTodoList={selectedTodoList} />
+      <TodoList
+        selectedTodoList={selectedTodoList}
+        setSelectedTodoList={setSelectedTodoList}
+      />
+      <AddButton
+        selectedTodoList={selectedTodoList}
+        onAddItem={setSelectedTodoList}
+      />
     </div>
   );
 };
