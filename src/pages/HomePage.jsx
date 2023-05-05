@@ -10,44 +10,48 @@ import parseDateToString from "@library/parseDateToString";
 import AddButton from "@components/AddButton";
 
 const HomePage = () => {
-  const { data: dateList, isLoading, error, sendRequest } = useHttp();
-  const [dotDates, setDotDates] = useState();
+  const { data: dataList, isLoading, error, sendRequest } = useHttp();
+  const [dotDates, setDotDates] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedTodoList, setSelectedTodoList] = useState([]);
-
-  // console.log(parseDateToString(new Date()));
+  const [dayKey, setDayKey] = useState("");
 
   useEffect(() => {
     sendRequest({
       url: "https://todolist-aaf92-default-rtdb.firebaseio.com/todoList.json",
     });
-  }, []);
+  }, [selectedDate]);
 
   const getDate = () => {
-    setDotDates(dateList.map((item) => item.date));
+    let temp = dataList.map((item) => item.date);
+    setDotDates([...temp]);
   };
 
-  // api에서 받아온 dateList가 변할때 마다 getDate로 배열 생성
+  // api에서 받아온 dataList가 변할때 마다 getDate로 배열 생성
   useEffect(() => {
     getDate();
-  }, [dateList]);
+  }, [dataList, selectedTodoList.length]);
 
   // seletedDate가 설정될 때마다 해당 날짜의 todoList를 setSeletecedTodoList를 해준다.
-  // 최초 dateList가 fetch되었을 때도 set된다.
-
+  // 최초 dataList가 fetch되었을 때도 set된다.
   const filteredTodoList = () => {
     if (!selectedDate) return;
     const currentDateString = parseDateToString(selectedDate);
-    const filteredTodoData = dateList?.find(
-      (item) => item.date === currentDateString
-    );
-    return filteredTodoData?.todo;
+
+    let filteredTodoData = dataList?.find((item) => {
+      setDayKey(item.id);
+      return item.date === currentDateString;
+    });
+
+    if (!filteredTodoData) setDayKey("");
+
+    return filteredTodoData ? filteredTodoData.todo : [];
   };
 
   useEffect(() => {
     const temp = filteredTodoList();
-    temp ? setSelectedTodoList(temp) : setSelectedTodoList([]);
-  }, [selectedDate, dateList]);
+    setSelectedTodoList([...temp]);
+  }, [selectedDate, dataList]);
 
   return (
     <div className={styles.container}>
@@ -62,6 +66,9 @@ const HomePage = () => {
       <TodoList
         selectedTodoList={selectedTodoList}
         setSelectedTodoList={setSelectedTodoList}
+        dayKey={dayKey}
+        setDayKey={setDayKey}
+        selectedDate={selectedDate}
       />
       <AddButton
         selectedTodoList={selectedTodoList}

@@ -1,9 +1,12 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useRef } from "react";
+import { parseObjectToList } from "@library/parseObjectToList";
 
 const useHttp = () => {
   const [isLoading, setIsLoadng] = useState(false);
   const [error, setError] = useState(null);
   const [data, setData] = useState([]);
+
+  let postIdRef = useRef();
 
   const sendRequest = useCallback(async (requestConfig) => {
     setIsLoadng(true);
@@ -17,12 +20,8 @@ const useHttp = () => {
 
       const objData = await response.json();
 
-      let loadedDotDates = [];
-      for (let key in objData) {
-        loadedDotDates.push(objData[key]);
-      }
-
-      setData(loadedDotDates);
+      const temp = [...parseObjectToList(objData)];
+      setData(temp);
 
       if (!response.ok) {
         throw new Error("Request Failed!");
@@ -35,6 +34,7 @@ const useHttp = () => {
   }, []);
 
   return {
+    postIdRef,
     data,
     isLoading,
     error,

@@ -1,7 +1,18 @@
 import React, { useRef, useEffect } from "react";
+import useHttp from "@hooks/useHttp";
+import parseDateToString from "@library/parseDateToString";
 
-const TodoItem = ({ item, onSelectedTodoList, selectedTodoList }) => {
-  const { isDone, content } = item;
+const TodoItem = ({
+  item,
+  dayKey,
+  setDayKey,
+  onSelectedTodoList,
+  selectedTodoList,
+  selectedDate,
+}) => {
+  const { postIdRef: todoId, sendRequest } = useHttp();
+  const { id, isDone, content } = item;
+
   const inputRef = useRef();
   useEffect(() => {
     if (inputRef.current) {
@@ -11,7 +22,36 @@ const TodoItem = ({ item, onSelectedTodoList, selectedTodoList }) => {
 
   const handleBlur = (event) => {
     const { value } = event.target;
-    onSelectedTodoList((prev) => [value, ...prev]);
+    if (value.trim() === "") {
+      const newSelectedTodoList = selectedTodoList.filter(
+        (todo) => todo !== item
+      );
+      onSelectedTodoList(newSelectedTodoList);
+    } else {
+      item.content = value;
+      const spreadSelectedTodoList = JSON.parse(
+        JSON.stringify(selectedTodoList)
+      );
+
+      onSelectedTodoList(spreadSelectedTodoList);
+      postTodoItem(dayKey, item);
+    }
+  };
+
+  const postTodoItem = async (dayKey, item) => {
+    if (dayKey) {
+      console.log(selectedDate, "selectedDate");
+      console.log(dayKey, "dayKey");
+      await sendRequest({
+        url: `https://todolist-aaf92-default-rtdb.firebaseio.com/todoList/${dayKey}/todo.json`,
+        header: { "Content-Type": "application/json" },
+        method: "POST",
+        body: {
+          isDone: false,
+          content: inputRef.current.value,
+        },
+      });
+    }
   };
 
   return (
