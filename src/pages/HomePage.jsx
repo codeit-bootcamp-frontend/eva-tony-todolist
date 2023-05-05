@@ -1,24 +1,27 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from 'react';
 
-import "react-calendar/dist/Calendar.css";
-import CodoitLogo from "@assets/codoit-logo.png";
-import styles from "@pages/HomePage.module.css";
-import useHttp from "@hooks/useHttp";
-import CalendarBox from "@components/CalendarBox";
-import TodoList from "@components/TodoList";
-import parseDateToString from "@library/parseDateToString";
-import AddButton from "@components/AddButton";
+import 'react-calendar/dist/Calendar.css';
+import CodoitLogo from '@assets/codoit-logo.png';
+import styles from '@pages/HomePage.module.css';
+import useHttp from '@hooks/useHttp';
+import CalendarBox from '@components/CalendarBox';
+import TodoList from '@components/TodoList';
+import parseDateToString from '@library/parseDateToString';
+import AddButton from '@components/AddButton';
+
+import { IoIosShareAlt } from 'react-icons/Io';
+import FooterNav from '../components/FooterNav';
 
 const HomePage = () => {
   const { data: dataList, isLoading, error, sendRequest } = useHttp();
   const [dotDates, setDotDates] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedTodoList, setSelectedTodoList] = useState([]);
-  const [dayKey, setDayKey] = useState("");
+  const [dayKey, setDayKey] = useState('');
 
   useEffect(() => {
     sendRequest({
-      url: "https://todolist-aaf92-default-rtdb.firebaseio.com/todoList.json",
+      url: 'https://todolist-aaf92-default-rtdb.firebaseio.com/todoList.json',
     });
   }, [selectedDate]);
 
@@ -43,7 +46,7 @@ const HomePage = () => {
       return item.date === currentDateString;
     });
 
-    if (!filteredTodoData) setDayKey("");
+    if (!filteredTodoData) setDayKey('');
 
     return filteredTodoData ? filteredTodoData.todo : [];
   };
@@ -55,7 +58,7 @@ const HomePage = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles["logo-wrap"]}>
+      <div className={styles['logo-wrap']}>
         <img className={styles.logo} src={CodoitLogo} />
       </div>
       <CalendarBox
@@ -63,6 +66,9 @@ const HomePage = () => {
         selectedDate={selectedDate}
         onSelectedDate={setSelectedDate}
       />
+      <div className={styles['share-box']}>
+        <IoIosShareAlt size={'2em'} color={'#d9d9d9'} />
+      </div>
       <TodoList
         selectedTodoList={selectedTodoList}
         setSelectedTodoList={setSelectedTodoList}
@@ -70,10 +76,11 @@ const HomePage = () => {
         setDayKey={setDayKey}
         selectedDate={selectedDate}
       />
-      <AddButton
+      {/* <AddButton
         selectedTodoList={selectedTodoList}
         onAddItem={setSelectedTodoList}
-      />
+      /> */}
+      <FooterNav />
     </div>
   );
 };

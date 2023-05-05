@@ -1,3 +1,6 @@
 .todolist-container {
-  border: 1px solid black;
+  height: 300px;
+  padding: 10px;
+  overflow: scroll;
+  margin-bottom: 80px;
 }

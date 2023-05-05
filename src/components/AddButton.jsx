@@ -1,4 +1,5 @@
-import React, { useRef } from "react";
+import React, { useRef } from 'react';
+import styles from '@components/AddButton.module.css';
 
 const AddButton = ({ selectedTodoList, onAddItem }) => {
   // let length = selectedTodoList?.length;
@@ -12,14 +13,16 @@ const AddButton = ({ selectedTodoList, onAddItem }) => {
     const newItem = {
       id: new Date().getTime(), // 임시적으로 사용하는 id
       isDone: false,
-      content: "",
+      content: '',
     };
     onAddItem((prev) => [newItem, ...prev]);
   };
 
   return (
-    <div>
-      <button onClick={handleClick}>+</button>
+    <div className={styles['button-box']}>
+      <button className={styles.button} onClick={handleClick}>
+        +
+      </button>
     </div>
   );
 };
