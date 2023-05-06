@@ -2,6 +2,8 @@ import React, { useRef, useEffect, useState } from 'react';
 import useHttp from '@hooks/useHttp';
 import styles from '@components/TodoItem.module.css';
 import parseDateToString from '@library/parseDateToString';
+// Import styles of the react-swipe-to-delete-component
+import 'react-swipe-to-delete-component/dist/swipe-to-delete.css';
 
 import {
   MdOutlineCheckBox,
@@ -70,18 +72,13 @@ const TodoItem = ({
     <MdOutlineCheckBoxOutlineBlank size={'2rem'} color={'#735bf2'} />
   );
 
-  const temp = content ? (
-    <p>{content}</p>
-  ) : (
-    <input ref={inputRef} onBlur={handleBlur} />
-  );
-
   return (
     <div
+      className={styles.item}
       onClick={() => {
         setIsDone(!isDone);
       }}
-      className={styles.item}
+      style={{ background: '#fff' }}
     >
       <div className={styles.left}>
         {isDoneIcon}

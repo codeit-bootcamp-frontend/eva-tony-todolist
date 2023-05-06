@@ -13,8 +13,6 @@ import { IoIosShareAlt } from 'react-icons/Io';
 import FooterNav from '@components/FooterNav';
 import LoginModal from '@components/LoginModal';
 
-import SwipeToDelete from 'react-swipe-to-delete-component';
-
 const HomePage = () => {
   const { data: dataList, isLoading, error, sendRequest } = useHttp();
   const [dotDates, setDotDates] = useState([]);
@@ -64,29 +62,9 @@ const HomePage = () => {
     setIsLogin(!isLogin);
   };
 
-  const data = [
-    { id: 1, text: 'End of summer reading list', date: '1.03.2016' },
-    { id: 2, text: 'Somewhere in the middle 📸', date: '23.01.2017' },
-    {
-      id: 3,
-      text: 'Good morning to 9M of you?!?! ❤️🙏🏻Feeling very grateful and giddy.',
-      date: '12.01.2022',
-    },
-  ];
-
-  const list = data.map((item) => (
-    <SwipeToDelete key={item.id}>
-      <a className="list-group-item">
-        <h4 className="list-group-item-heading">{item.date}</h4>
-        <p className="list-group-item-text">{item.text}</p>
-      </a>
-    </SwipeToDelete>
-  ));
-
   return (
     <div className={styles.container}>
-      {list}
-      {/* {isLogin && <LoginModal onConfirm={onConfirm} />}
+      {isLogin && <LoginModal onConfirm={onConfirm} />}
       <div className={styles['logo-wrap']}>
         <img className={styles.logo} src={CodoitLogo} />
       </div>
@@ -104,12 +82,12 @@ const HomePage = () => {
         dayKey={dayKey}
         setDayKey={setDayKey}
         selectedDate={selectedDate}
-      /> */}
+      />
       {/* <AddButton
         selectedTodoList={selectedTodoList}
         onAddItem={setSelectedTodoList}
       /> */}
-      {/* <FooterNav /> */}
+      <FooterNav />
     </div>
   );
 };

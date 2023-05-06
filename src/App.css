@@ -28,3 +28,12 @@ body {
   font-size: 1.6rem;
   overflow: hidden;
 }
+
+.swipe-to-delete {
+  height: 53px !important;
+}
+
+.js-delete {
+  background-color: #fff !important;
+  height: 53px !important;
+}
