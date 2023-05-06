@@ -6,10 +6,24 @@ import TodoItem from "@components/TodoItem";
 import SwipeToDelete from "react-swipe-to-delete-component";
 // // Import styles of the react-swipe-to-delete-component
 import "react-swipe-to-delete-component/dist/swipe-to-delete.css";
+import useHttp from "@hooks/useHttp";
 
-const TodoList = ({ selectedTodoList, setSelectedTodoList, selectedDate }) => {
-  const todoItemDeleteHanlder = () => {
-    console.log("삭제 되었습니다.");
+const TodoList = ({
+  selectedTodoList,
+  setSelectedTodoList,
+  selectedDate,
+  getDotDates,
+}) => {
+  const { sendRequest: deleteItem } = useHttp();
+
+  const todoItemDeleteHanlder = (id) => {
+    return () => {
+      return deleteItem({ url: `api/todo/${id}`, method: "DELETE" }).then(
+        getDotDates({
+          url: `api/dotdates`,
+        })
+      );
+    };
   };
 
   return (
@@ -17,7 +31,7 @@ const TodoList = ({ selectedTodoList, setSelectedTodoList, selectedDate }) => {
       {selectedTodoList[0]?.todo_items?.map((item) => (
         <SwipeToDelete
           key={item.id ? item.id : new Date().getTime()}
-          onDelete={todoItemDeleteHanlder}
+          onDelete={todoItemDeleteHanlder(item.id)}
         >
           <TodoItem
             key={item.id ? item.id : new Date().getTime()}

@@ -28,7 +28,7 @@ const HomePage = () => {
       url: `api/todo/?date=${parseDateToString(selectedDate)}`,
     });
   }, [selectedDate]);
-
+  console.log(dotDates);
   useEffect(() => {
     getDotDates({
       url: `api/dotdates`,
@@ -53,6 +53,7 @@ const HomePage = () => {
         selectedTodoList={selectedTodoList}
         setSelectedTodoList={setSelectedTodoList}
         selectedDate={selectedDate}
+        getDotDates={getDotDates}
       />
       {/* <AddButton
         selectedTodoList={selectedTodoList}
