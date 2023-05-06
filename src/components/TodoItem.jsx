@@ -1,29 +1,28 @@
-import React, { useRef, useEffect, useState } from 'react';
-import useHttp from '@hooks/useHttp';
-import styles from '@components/TodoItem.module.css';
-import parseDateToString from '@library/parseDateToString';
+import React, { useRef, useEffect, useState } from "react";
+import useHttp from "@hooks/useHttp";
+import styles from "@components/TodoItem.module.css";
+import parseDateToString from "@library/parseDateToString";
 // Import styles of the react-swipe-to-delete-component
-import 'react-swipe-to-delete-component/dist/swipe-to-delete.css';
+import "react-swipe-to-delete-component/dist/swipe-to-delete.css";
 
 import {
   MdOutlineCheckBox,
   MdOutlineCheckBoxOutlineBlank,
-} from 'react-icons/Md';
+} from "react-icons/Md";
 
-import { HiOutlineTrash } from 'react-icons/Hi';
+import { HiOutlineTrash } from "react-icons/Hi";
 
 const TodoItem = ({
   item,
-  dayKey,
-  setDayKey,
   onSelectedTodoList,
   selectedTodoList,
   selectedDate,
 }) => {
-  const { postIdRef: todoId, sendRequest } = useHttp();
-  const { id, content } = item;
+  const { sendRequest } = useHttp();
+  const { id, isDone, content } = item;
 
   const inputRef = useRef();
+
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();
@@ -32,11 +31,16 @@ const TodoItem = ({
 
   const handleBlur = (event) => {
     const { value } = event.target;
-    if (value.trim() === '') {
-      const newSelectedTodoList = selectedTodoList.filter(
-        (todo) => todo !== item
+    if (value.trim() === "") {
+      const filteredTodoList = selectedTodoList[0].todo_items.filter(
+        (todo) => todo.content !== ""
       );
-      onSelectedTodoList(newSelectedTodoList);
+
+      const newSelectedTodoList = {
+        date: selectedTodoList[0].date,
+        todo_items: [...filteredTodoList],
+      };
+      onSelectedTodoList([newSelectedTodoList]);
     } else {
       item.content = value;
       const spreadSelectedTodoList = JSON.parse(
@@ -44,32 +48,25 @@ const TodoItem = ({
       );
 
       onSelectedTodoList(spreadSelectedTodoList);
-      postTodoItem(dayKey, item);
+      postTodoItem(item);
     }
   };
-
-  const postTodoItem = async (dayKey, item) => {
-    if (dayKey) {
-      console.log(selectedDate, 'selectedDate');
-      console.log(dayKey, 'dayKey');
-      await sendRequest({
-        url: `https://todolist-aaf92-default-rtdb.firebaseio.com/todoList/${dayKey}/todo.json`,
-        header: { 'Content-Type': 'application/json' },
-        method: 'POST',
-        body: {
-          isDone: false,
-          content: inputRef.current.value,
-        },
-      });
-    }
+  const postTodoItem = async (item) => {
+    await sendRequest({
+      url: `api/todo/`,
+      headers: { "Content-Type": "application/json" },
+      method: "POST",
+      body: {
+        date: parseDateToString(selectedDate),
+        todo_items: [{ content: item.content, is_done: false }],
+      },
+    });
   };
-
-  const [isDone, setIsDone] = useState(false);
 
   const isDoneIcon = isDone ? (
-    <MdOutlineCheckBox size={'2rem'} color={'#735bf2'} />
+    <MdOutlineCheckBox size={"2rem"} color={"#735bf2"} />
   ) : (
-    <MdOutlineCheckBoxOutlineBlank size={'2rem'} color={'#735bf2'} />
+    <MdOutlineCheckBoxOutlineBlank size={"2rem"} color={"#735bf2"} />
   );
 
   return (
@@ -78,13 +75,19 @@ const TodoItem = ({
       onClick={() => {
         setIsDone(!isDone);
       }}
-      style={{ background: '#fff' }}
+      style={{ background: "#fff" }}
     >
-      <div className={styles.left}>
-        {isDoneIcon}
-        <span className={styles.content}>{content}</span>
-      </div>
-      <HiOutlineTrash size={'2rem'} />
+      {content ? (
+        <>
+          <div className={styles.left}>
+            {isDoneIcon}
+            <span className={styles.content}>{content}</span>
+          </div>
+          <HiOutlineTrash size={"2rem"} />
+        </>
+      ) : (
+        <input ref={inputRef} onBlur={handleBlur} />
+      )}
     </div>
   );
 };

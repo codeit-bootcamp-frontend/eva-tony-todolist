@@ -1,27 +1,26 @@
-import React, { useState, useCallback, useRef } from "react";
-import { parseObjectToList } from "@library/parseObjectToList";
+import React, { useState, useCallback } from "react";
 
-const useHttp = () => {
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
+const useHttp = (applyData) => {
   const [isLoading, setIsLoadng] = useState(false);
   const [error, setError] = useState(null);
-  const [data, setData] = useState([]);
-
-  let postIdRef = useRef();
+  // const [data, setData] = useState([]);
 
   const sendRequest = useCallback(async (requestConfig) => {
     setIsLoadng(true);
     setError(null);
+
     try {
-      const response = await fetch(requestConfig.url, {
+      const response = await fetch(`${BASE_URL}${requestConfig.url}`, {
         method: requestConfig.method || "GET",
         headers: requestConfig.headers || {},
         body: JSON.stringify(requestConfig.body) || null,
       });
 
-      const objData = await response.json();
+      const json = await response.json();
 
-      const temp = [...parseObjectToList(objData)];
-      setData(temp);
+      applyData(json);
 
       if (!response.ok) {
         throw new Error("Request Failed!");
@@ -34,8 +33,6 @@ const useHttp = () => {
   }, []);
 
   return {
-    postIdRef,
-    data,
     isLoading,
     error,
     sendRequest,
