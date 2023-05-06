@@ -19,7 +19,7 @@ const useHttp = (applyData) => {
       });
 
       const json = await response.json();
-
+      console.log("json", json);
       applyData(json);
 
       if (!response.ok) {

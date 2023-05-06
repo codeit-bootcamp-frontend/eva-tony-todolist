@@ -18,7 +18,7 @@ const TodoItem = ({
   selectedTodoList,
   selectedDate,
 }) => {
-  const { sendRequest } = useHttp();
+  const { sendRequest } = useHttp(onSelectedTodoList);
   const { id, isDone, content } = item;
 
   const inputRef = useRef();
@@ -32,23 +32,26 @@ const TodoItem = ({
   const handleBlur = (event) => {
     const { value } = event.target;
     if (value.trim() === "") {
-      const filteredTodoList = selectedTodoList[0].todo_items.filter(
+      const filteredTodoList = selectedTodoList.filter(
         (todo) => todo.content !== ""
       );
 
-      const newSelectedTodoList = {
-        date: selectedTodoList[0].date,
-        todo_items: [...filteredTodoList],
-      };
-      onSelectedTodoList([newSelectedTodoList]);
+      // const newSelectedTodoList = {
+      //   date: selectedDate,
+      //   todo_items: [...filteredTodoList],
+      // };
+      onSelectedTodoList([...filteredTodoList]);
     } else {
       item.content = value;
-      const spreadSelectedTodoList = JSON.parse(
-        JSON.stringify(selectedTodoList)
-      );
+      // const spreadSelectedTodoList = JSON.parse(
+      //   JSON.stringify(selectedTodoList)
+      // );
 
-      onSelectedTodoList(spreadSelectedTodoList);
-      postTodoItem(item);
+      // onSelectedTodoList(spreadSelectedTodoList);
+      onSelectedTodoList([...selectedTodoList]);
+      console.log(item);
+      const response = postTodoItem(item);
+      console.log(response);
     }
   };
   const postTodoItem = async (item) => {

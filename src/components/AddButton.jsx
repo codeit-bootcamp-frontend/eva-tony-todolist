@@ -15,24 +15,23 @@ const AddButton = ({ selectedTodoList, onAddItem }) => {
       isDone: false,
       content: "",
     };
-    console.log(selectedTodoList);
-    if (selectedTodoList.length) {
-      const temp = JSON.parse(JSON.stringify(selectedTodoList));
-      temp[0]?.todo_items.unshift(newItem);
-      onAddItem(temp);
+    // if (selectedTodoList.length) {
+    if (selectedTodoList) {
+      // selectedTodoList.unshift(newItem);
+      onAddItem([newItem, ...selectedTodoList]);
     } else {
-      const tempObj = [
-        {
-          id: new Date().getTime(),
-          date: "",
-          todo_items: [
-            {
-              content: "",
-            },
-          ],
-        },
-      ];
-      onAddItem(tempObj);
+      // const tempObj = [
+      //   {
+      //     id: new Date().getTime(),
+      //     date: "",
+      //     todo_items: [
+      //       {
+      //         content: "",
+      //       },
+      //     ],
+      //   },
+      // ];
+      onAddItem(["", ...selectedTodoList]);
     }
   };
 
