@@ -10,8 +10,8 @@ const FooterNav = () => {
       <div className={styles['button-box']}>
         <AddButton />
       </div>
-      <BsCalendar2Date />
-      <AiOutlineUser />
+      <BsCalendar2Date style={{ cursor: 'pointer' }} />
+      <AiOutlineUser style={{ cursor: 'pointer' }} />
     </div>
   );
 };

@@ -1,6 +1,7 @@
-import React from "react";
-import styles from "@components/Todolist.module.css";
-import TodoItem from "@components/TodoItem";
+import React from 'react';
+import styles from '@components/Todolist.module.css';
+import TodoItem from '@components/TodoItem';
+import SwipeToDeleteComponent from 'react-swipe-to-delete-component';
 
 const TodoList = ({
   dayKey,
@@ -10,18 +11,21 @@ const TodoList = ({
   selectedDate,
 }) => {
   return (
-    <div className={styles["todolist-container"]}>
-      {selectedTodoList?.map((item) => (
-        <TodoItem
-          key={item.id}
-          dayKey={dayKey}
-          setDayKey={setDayKey}
-          item={item}
-          onSelectedTodoList={setSelectedTodoList}
-          selectedTodoList={selectedTodoList}
-          selectedDate={selectedDate}
-        />
-      ))}
+    <div className={styles['todolist-container']}>
+      {/* {selectedTodoList?.map((item) => (
+        <SwipeToDeleteComponent key={item.id}>
+          <TodoItem
+            key={item.id}
+            dayKey={dayKey}
+            setDayKey={setDayKey}
+            item={item}
+            onSelectedTodoList={setSelectedTodoList}
+            selectedTodoList={selectedTodoList}
+            selectedDate={selectedDate}
+          />
+        </SwipeToDeleteComponent>
+      ))} */}
+      {list}
     </div>
   );
 };
