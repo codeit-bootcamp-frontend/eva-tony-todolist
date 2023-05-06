@@ -1,28 +1,28 @@
-import React, { useRef } from "react";
+import React, { useRef } from 'react';
+import styles from '@components/AddButton.module.css';
 
-const AddButton = ({ selectedDay, onAddItem, flag }) => {
-  const length = selectedDay?.todo?.length;
-  let todoItemId = useRef(length);
+const AddButton = ({ selectedTodoList, onAddItem }) => {
+  // let length = selectedTodoList?.length;
+
+  // selectedTodoList가 []일 때 length가 0이라 생기는 키 중복 이슈
+  // let todoItemId = length ? useRef(length) : null;
 
   const handleClick = () => {
-    todoItemId.current++;
+    // if (!length) return;
+    // todoItemId.current++;
     const newItem = {
-      id: todoItemId.current,
+      id: new Date().getTime(), // 임시적으로 사용하는 id
       isDone: false,
-      content: "",
+      content: '',
     };
-
-    // onAddItem([newItem, ...selectedDateTodoList]);
-    // onAddItem([newItem, ...selectedDay]);
-    onAddItem((prevState) => ({
-      ...prevState,
-      todo: [...prevState.todo, newItem],
-    }));
+    onAddItem((prev) => [newItem, ...prev]);
   };
 
   return (
-    <div>
-      <button onClick={handleClick}>+</button>
+    <div className={styles['button-box']}>
+      <button className={styles.button} onClick={handleClick}>
+        +
+      </button>
     </div>
   );
 };
