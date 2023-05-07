@@ -88,7 +88,7 @@ const TodoItem = ({
 
   const putTodoItem = async () => {
     await putIsDone({
-      url: `api/todo/${id}`,
+      url: `api/todo/${id}/`,
       headers: { "Content-Type": "application/json" },
       method: "PUT",
       body: {
