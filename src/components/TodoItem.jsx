@@ -4,7 +4,7 @@ import styles from '@components/TodoItem.module.css';
 import parseDateToString from '@library/parseDateToString';
 // Import styles of the react-swipe-to-delete-component
 import 'react-swipe-to-delete-component/dist/swipe-to-delete.css';
-import { SlPencil } from 'react-icons/sl';
+import { SlPencil } from 'react-icons/Sl';
 
 import {
   MdOutlineCheckBox,
@@ -41,20 +41,19 @@ const TodoItem = ({
 
       onSelectedTodoList([...filteredTodoList]);
     } else {
-      item.content = value;
-
+      content = value;
       onSelectedTodoList([...selectedTodoList]);
-    }
-    if (!update) {
-      postTodoItem(item);
-    } else {
-      putTodoItem();
+      if (!update) {
+        postTodoItem(item);
+      } else {
+        putTodoItem();
+      }
     }
   };
 
   const handleEnter = (e) => {
     if (e.key === 'Enter') {
-      const { value } = event.target;
+      const { value } = e.target;
       if (value.trim() === '') {
         const filteredTodoList = selectedTodoList.filter(
           (todo) => todo.content !== ''
@@ -62,15 +61,15 @@ const TodoItem = ({
 
         onSelectedTodoList([...filteredTodoList]);
       } else {
-        item.content = value;
+        content = value;
 
         onSelectedTodoList([...selectedTodoList]);
+        if (!update) {
+          postTodoItem(item);
+        } else {
+          putTodoItem();
+        }
       }
-    }
-    if (!update) {
-      postTodoItem(item);
-    } else {
-      putTodoItem();
     }
   };
 
@@ -81,7 +80,7 @@ const TodoItem = ({
       method: 'POST',
       body: {
         date: parseDateToString(selectedDate),
-        todo_items: [{ content: item.content, is_done: false }],
+        todo_items: [{ content, is_done: false }],
       },
     });
   };
@@ -93,7 +92,7 @@ const TodoItem = ({
       method: 'PUT',
       body: {
         content: inputRef.current.value,
-        is_done,
+        is_done: isDone,
       },
     });
   };
