@@ -3,13 +3,9 @@ import useHttp from "@hooks/useHttp";
 import styles from "@components/TodoItem.module.css";
 import parseDateToString from "@library/parseDateToString";
 // Import styles of the react-swipe-to-delete-component
-<<<<<<< HEAD
+
 import "react-swipe-to-delete-component/dist/swipe-to-delete.css";
 import { SlPencil } from "react-icons/Sl";
-=======
-import 'react-swipe-to-delete-component/dist/swipe-to-delete.css';
-import { SlPencil } from 'react-icons/Sl';
->>>>>>> e83bb108e62cb993beb7e936405b405237e23c82
 
 import {
   MdOutlineCheckBox,
@@ -46,8 +42,15 @@ const TodoItem = ({
 
       onSelectedTodoList([...filteredTodoList]);
     } else {
-      content = value;
+      item.content = value;
+
       onSelectedTodoList([...selectedTodoList]);
+      if (!update) {
+        postTodoItem(item);
+      } else {
+        putTodoItem();
+      }
+    }
       if (!update) {
         postTodoItem(item);
       } else {
@@ -57,24 +60,27 @@ const TodoItem = ({
   };
 
   const handleEnter = (e) => {
-<<<<<<< HEAD
+
     if (e.key === "Enter") {
       const { value } = event.target;
       if (value.trim() === "") {
-=======
-    if (e.key === 'Enter') {
-      const { value } = e.target;
-      if (value.trim() === '') {
->>>>>>> e83bb108e62cb993beb7e936405b405237e23c82
+
         const filteredTodoList = selectedTodoList.filter(
           (todo) => todo.content !== ""
         );
 
         onSelectedTodoList([...filteredTodoList]);
       } else {
-        content = value;
+        item.content = value;
 
         onSelectedTodoList([...selectedTodoList]);
+        if (!update) {
+          postTodoItem(item);
+        } else {
+          putTodoItem();
+        }
+      }
+    }
         if (!update) {
           postTodoItem(item);
         } else {
@@ -91,7 +97,7 @@ const TodoItem = ({
       method: "POST",
       body: {
         date: parseDateToString(selectedDate),
-        todo_items: [{ content, is_done: false }],
+        todo_items: [{ content: item.content, is_done: false }],
       },
     });
   };
@@ -103,10 +109,6 @@ const TodoItem = ({
       method: "PUT",
       body: {
         content: inputRef.current.value,
-<<<<<<< HEAD
-=======
-        is_done: isDone,
->>>>>>> e83bb108e62cb993beb7e936405b405237e23c82
       },
     });
   };
