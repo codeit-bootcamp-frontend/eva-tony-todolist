@@ -20,6 +20,11 @@
   margin-left: 1rem;
   display: inline-block;
 }
+.is-done {
+  margin-left: 1rem;
+  color: gray;
+  text-decoration: line-through;
+}
 
 .checkbox {
   border-radius: 12px;
