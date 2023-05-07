@@ -1,16 +1,16 @@
-import React, { useRef, useEffect, useState } from "react";
-import useHttp from "@hooks/useHttp";
-import styles from "@components/TodoItem.module.css";
-import parseDateToString from "@library/parseDateToString";
+import React, { useRef, useEffect, useState } from 'react';
+import useHttp from '@hooks/useHttp';
+import styles from '@components/TodoItem.module.css';
+import parseDateToString from '@library/parseDateToString';
 // Import styles of the react-swipe-to-delete-component
-import "react-swipe-to-delete-component/dist/swipe-to-delete.css";
+import 'react-swipe-to-delete-component/dist/swipe-to-delete.css';
 
 import {
   MdOutlineCheckBox,
   MdOutlineCheckBoxOutlineBlank,
-} from "react-icons/Md";
+} from 'react-icons/md';
 
-import { HiOutlineTrash } from "react-icons/Hi";
+import { HiOutlineTrash } from 'react-icons/hi';
 
 const TodoItem = ({
   item,
@@ -34,9 +34,9 @@ const TodoItem = ({
 
   const handleBlur = (event) => {
     const { value } = event.target;
-    if (value.trim() === "") {
+    if (value.trim() === '') {
       const filteredTodoList = selectedTodoList.filter(
-        (todo) => todo.content !== ""
+        (todo) => todo.content !== ''
       );
 
       onSelectedTodoList([...filteredTodoList]);
@@ -49,11 +49,11 @@ const TodoItem = ({
   };
 
   const handleEnter = (e) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       const { value } = event.target;
-      if (value.trim() === "") {
+      if (value.trim() === '') {
         const filteredTodoList = selectedTodoList.filter(
-          (todo) => todo.content !== ""
+          (todo) => todo.content !== ''
         );
 
         onSelectedTodoList([...filteredTodoList]);
@@ -70,8 +70,8 @@ const TodoItem = ({
   const postTodoItem = async (item) => {
     await sendRequest({
       url: `api/todo/`,
-      headers: { "Content-Type": "application/json" },
-      method: "POST",
+      headers: { 'Content-Type': 'application/json' },
+      method: 'POST',
       body: {
         date: parseDateToString(selectedDate),
         todo_items: [{ content: item.content, is_done: false }],
@@ -82,8 +82,8 @@ const TodoItem = ({
   const isDoneIcon = isDone ? (
     <MdOutlineCheckBox
       className={styles.checkbox}
-      size={"2rem"}
-      color={"#735bf2"}
+      size={'2rem'}
+      color={'#735bf2'}
       onClick={() => {
         setIsDone(!isDone);
         sendIsDone();
@@ -91,8 +91,8 @@ const TodoItem = ({
     />
   ) : (
     <MdOutlineCheckBoxOutlineBlank
-      size={"2rem"}
-      color={"#735bf2"}
+      size={'2rem'}
+      color={'#735bf2'}
       onClick={() => {
         setIsDone(!isDone);
         sendIsDone();
@@ -103,8 +103,8 @@ const TodoItem = ({
   const sendIsDone = () => {
     putIsDone({
       url: `api/todo/${id}/`,
-      headers: { "Content-Type": "application/json" },
-      method: "PUT",
+      headers: { 'Content-Type': 'application/json' },
+      method: 'PUT',
       body: {
         is_done: isDone,
       },
@@ -112,14 +112,14 @@ const TodoItem = ({
   };
 
   return (
-    <div className={styles.item} style={{ background: "#fff" }}>
+    <div className={styles.item} style={{ background: '#fff' }}>
       {content ? (
         <>
           <div className={styles.left}>
             {isDoneIcon}
             <span className={styles.content}>{content}</span>
           </div>
-          <HiOutlineTrash size={"1.6rem"} color={"var(--primary-color)"} />
+          <HiOutlineTrash size={'1.6rem'} color={'var(--primary-color)'} />
         </>
       ) : (
         <input
