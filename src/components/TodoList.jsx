@@ -1,13 +1,14 @@
-import React from "react";
-import styles from "@components/Todolist.module.css";
-import TodoItem from "@components/TodoItem";
+import React from 'react';
+import styles from '@components/Todolist.module.css';
+import TodoItem from '@components/TodoItem';
 
 // Import the react-swipe-to-delete-component
-import SwipeToDelete from "react-swipe-to-delete-component";
+import SwipeToDelete from 'react-swipe-to-delete-component';
 // // Import styles of the react-swipe-to-delete-component
-import "react-swipe-to-delete-component/dist/swipe-to-delete.css";
-import useHttp from "@hooks/useHttp";
-import parseDateToString from "@library/parseDateToString";
+import 'react-swipe-to-delete-component/dist/swipe-to-delete.css';
+import useHttp from '@hooks/useHttp';
+import parseDateToString from '@library/parseDateToString';
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 const TodoList = ({
   selectedTodoList,
   onSelectedTodoList,
@@ -26,29 +27,67 @@ const TodoList = ({
       //   todo_items: [...filteredTodoList],
       // };
       onSelectedTodoList(filteredTodoList);
-      return deleteItem({ url: `api/todo/${item.id}`, method: "DELETE" });
+      return deleteItem({ url: `api/todo/${item.id}`, method: 'DELETE' });
     };
+  };
+  console.log(selectedTodoList);
+
+  const handleChange = (result) => {
+    console.log(result.source);
+    if (!result.destination) return;
+    const items = [...selectedTodoList];
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+    onSelectedTodoList(items);
   };
 
   return (
-    <div className={styles["todolist-container"]}>
-      {console.log(selectedTodoList)}
-      {/* {selectedTodoList[0]?.todo_items?.map((item) => ( */}
-      {selectedTodoList.map((item) => (
-        <SwipeToDelete
-          key={item.id ? item.id : new Date().getTime()}
-          onDelete={todoItemDeleteHanlder(item)}
-        >
-          <TodoItem
-            key={item.id ? item.id : new Date().getTime()}
-            item={item}
-            onSelectedTodoList={onSelectedTodoList}
-            selectedTodoList={selectedTodoList}
-            selectedDate={selectedDate}
-          />
-        </SwipeToDelete>
-      ))}
-    </div>
+    <DragDropContext onDragEnd={handleChange}>
+      <Droppable droppableId="todoList">
+        {(provided) => (
+          <div
+            className="todoList"
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+          >
+            <div className={styles['todolist-container']}>
+              {selectedTodoList.map((item, index) => (
+                <Draggable
+                  draggableId={String(item.id)}
+                  key={String(item.id)}
+                  index={index}
+                  restrictions={{ start: 0, end: 0 }}
+                >
+                  {(provided, snapshot) => {
+                    return (
+                      <div
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        ref={provided.innerRef}
+                      >
+                        <SwipeToDelete
+                          key={item.id ? item.id : new Date().getTime()}
+                          onDelete={todoItemDeleteHanlder(item)}
+                        >
+                          <TodoItem
+                            key={item.id ? item.id : new Date().getTime()}
+                            item={item}
+                            onSelectedTodoList={onSelectedTodoList}
+                            selectedTodoList={selectedTodoList}
+                            selectedDate={selectedDate}
+                          />
+                        </SwipeToDelete>
+                      </div>
+                    );
+                  }}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </div>
+          </div>
+        )}
+      </Droppable>
+    </DragDropContext>
   );
 };
 
