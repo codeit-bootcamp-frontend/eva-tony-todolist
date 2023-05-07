@@ -52,3 +52,57 @@
 - gray : #D9D9D9
 - white
 - black
+
+```
+eva-tony-todolist
+├─ .eslintrc.cjs
+├─ .gitignore
+├─ README.md
+├─ data.json
+├─ index.html
+├─ package-lock.json
+├─ package.json
+├─ src
+│  ├─ App.css
+│  ├─ App.jsx
+│  ├─ api
+│  │  └─ requestData.js
+│  ├─ assets
+│  │  ├─ codoit-logo.png
+│  │  ├─ codoit-logo.svg
+│  │  └─ kakao.svg
+│  ├─ components
+│  │  ├─ AddButton.jsx
+│  │  ├─ AddButton.module.css
+│  │  ├─ Calendar.css
+│  │  ├─ CalendarBox.css
+│  │  ├─ CalendarBox.jsx
+│  │  ├─ FooterNav.jsx
+│  │  ├─ FooterNav.module.css
+│  │  ├─ Header.jsx
+│  │  ├─ Header.module.css
+│  │  ├─ LoginModal.jsx
+│  │  ├─ LoginModal.module.css
+│  │  ├─ MenuBar.jsx
+│  │  ├─ TodoItem.jsx
+│  │  ├─ TodoItem.module.css
+│  │  ├─ TodoList.jsx
+│  │  └─ TodoList.module.css
+│  ├─ hooks
+│  │  └─ useHttp.jsx
+│  ├─ library
+│  │  ├─ parseDateToString.js
+│  │  └─ parseObjectToList.js
+│  ├─ main.jsx
+│  └─ pages
+│     ├─ Auth.jsx
+│     ├─ HomePage.jsx
+│     ├─ HomePage.module.css
+│     ├─ Layout.jsx
+│     ├─ LoginPage.jsx
+│     ├─ LoginPage.module.css
+│     ├─ User.jsx
+│     └─ User.module.css
+└─ vite.config.js
+
+```

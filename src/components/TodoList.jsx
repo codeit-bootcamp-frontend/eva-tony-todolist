@@ -22,18 +22,13 @@ const TodoList = ({
       const filteredTodoList = selectedTodoList.filter(
         (todo) => todo.content !== item
       );
-      // const newSelectedTodoList = {
-      //   date: parseDateToString(selectedDate),
-      //   todo_items: [...filteredTodoList],
-      // };
+
       onSelectedTodoList(filteredTodoList);
       return deleteItem({ url: `api/todo/${item.id}`, method: 'DELETE' });
     };
   };
-  console.log(selectedTodoList);
 
   const handleChange = (result) => {
-    console.log(result.source);
     if (!result.destination) return;
     const items = [...selectedTodoList];
     const [reorderedItem] = items.splice(result.source.index, 1);

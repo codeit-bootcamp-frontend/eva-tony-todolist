@@ -1,18 +1,17 @@
 @font-face {
-  font-family: "BookkMyungjo-Bd";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/BookkMyungjo-Bd.woff2")
-    format("woff2");
+  font-family: 'BookkMyungjo-Bd';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/BookkMyungjo-Bd.woff2')
+    format('woff2');
   font-weight: 700;
   font-style: normal;
 }
+
 .react-calendar {
   width: 350px;
   height: 400px;
   max-width: 100%;
   background: white;
-  /* border: 1px solid #a0a096; */
-  font-family: "BookkMyungjo-Bd", Arial, Helvetica, sans-serif;
-  /* line-height: 1.125em; */
+  font-family: 'BookkMyungjo-Bd', Arial, Helvetica, sans-serif;
 }
 
 .react-calendar--doubleView {
@@ -154,14 +153,14 @@
 }
 .react-calendar__navigation__label > span {
   font-size: 8px;
-  font-family: "BookkMyungjo-Bd";
+  font-family: 'BookkMyungjo-Bd';
   color: var(--primary-color);
 }
 .react-calendar__tile:focus {
-  font-family: "BookkMyungjo-Bd";
+  font-family: 'BookkMyungjo-Bd';
 }
 
 .react-calendar__navigation__arrow button {
-  font-family: "Helvetica";
+  font-family: 'Helvetica';
   color: #e6e6e6;
 }

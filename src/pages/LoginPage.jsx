@@ -28,8 +28,6 @@ const LoginPage = ({ KAKAO_REDIRECT_URI }) => {
   };
 
   const navigate = useNavigate();
-  // let userId = useRef();
-  // let userPassword = useRef();
   const [isLoading, setIsLoading] = useState(false);
 
   const onSubmitHandler = (event) => {

@@ -1,8 +1,12 @@
 [build]
   command = "npm run build"
-
   rollupOpts = { 
     external: [ 
       'react-icons/Io'
     ]
   }
+  
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

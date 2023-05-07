@@ -1,17 +1,17 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from 'react';
 
-import "react-calendar/dist/Calendar.css";
-import CodoitLogo from "@assets/codoit-logo.svg";
-import styles from "@pages/HomePage.module.css";
-import useHttp from "@hooks/useHttp";
-import CalendarBox from "@components/CalendarBox";
-import TodoList from "@components/TodoList";
-import parseDateToString from "@library/parseDateToString";
-import AddButton from "@components/AddButton";
+import 'react-calendar/dist/Calendar.css';
+import CodoitLogo from '@assets/codoit-logo.svg';
+import styles from '@pages/HomePage.module.css';
+import useHttp from '@hooks/useHttp';
+import CalendarBox from '@components/CalendarBox';
+import TodoList from '@components/TodoList';
+import parseDateToString from '@library/parseDateToString';
+import AddButton from '@components/AddButton';
 
-import { IoIosShareAlt } from "react-icons/Io";
-import FooterNav from "@components/FooterNav";
-import LoginModal from "@components/LoginModal";
+import { IoIosShareAlt } from 'react-icons/Io';
+import FooterNav from '@components/FooterNav';
+import LoginModal from '@components/LoginModal';
 
 const HomePage = () => {
   const [dotDates, setDotDates] = useState([]);
@@ -43,20 +43,17 @@ const HomePage = () => {
 
   return (
     <div className={styles.container}>
-      {!isLoggedIn && !localStorage.getItem("accessToken") && (
+      {!isLoggedIn && !localStorage.getItem('accessToken') && (
         <LoginModal onConfirm={onConfirm} />
       )}
-      {/* <div className={styles["logo-wrap"]}>
-        <img className={styles.logo} src={CodoitLogo} />
-      </div> */}
       <div onClick={handleClickWithOutAuth}>
         <CalendarBox
           dotDates={dotDates}
           selectedDate={selectedDate}
           onSelectedDate={setSelectedDate}
         />
-        <div className={styles["share-box"]}>
-          <IoIosShareAlt size={"2em"} color={"#d9d9d9"} />
+        <div className={styles['share-box']}>
+          <IoIosShareAlt size={'2em'} color={'#d9d9d9'} />
         </div>
         <TodoList
           selectedTodoList={selectedTodoList}
@@ -64,13 +61,7 @@ const HomePage = () => {
           selectedDate={selectedDate}
           getDotDates={getDotDates}
         />
-        {/* <div className={styles["footer-wrap"]}>
-        <FooterNav
-          selectedTodoList={selectedTodoList}
-          onAddItem={setSelectedTodoList}
-        />
-      </div> */}
-        <div className={styles["button-box"]}>
+        <div className={styles['button-box']}>
           <AddButton
             selectedTodoList={selectedTodoList}
             onAddItem={setSelectedTodoList}
