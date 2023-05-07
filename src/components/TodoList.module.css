@@ -3,9 +3,6 @@
   padding: 1rem;
   overflow-y: scroll;
   margin-bottom: 8rem;
-
-  /* position: absolute;
-  bottom: 0; */
 }
 
 .todolist-container::-webkit-scrollbar {
