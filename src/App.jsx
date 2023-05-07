@@ -9,7 +9,7 @@ import User from "@pages/User";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const REST_API_KEY = "75796b33aac62e190e50bcc064cce581";
-const REDIRECT_URI = `${BASE_URL}/oauth/kakao/callback`;
+const REDIRECT_URI = `${BASE_URL}oauth/kakao/callback`;
 const KAKAO_REDIRECT_URI = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
 function App() {

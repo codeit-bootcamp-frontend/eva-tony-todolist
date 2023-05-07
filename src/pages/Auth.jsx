@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const REST_API_KEY = "75796b33aac62e190e50bcc064cce581";
-const REDIRECT_URI = `${BASE_URL}/oauth/kakao/callback`;
+const REDIRECT_URI = `${BASE_URL}oauth/kakao/callback`;
 const CLIENT_SECRET = "CnTc6hyr4KUvRvUXCesPDAhXXJCQszeZ";
 
 const Auth = ({ setUserInfo }) => {
