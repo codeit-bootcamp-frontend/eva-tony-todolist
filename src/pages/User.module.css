@@ -1,16 +1,16 @@
 .container {
-  max-width: 350px;
+  max-width: 35rem;
 
-  margin: 104px auto;
-  padding: 20px;
-  border: 1px solid black;
+  margin: 10.4rem auto;
+  padding: 2rem;
+  border: 0.1rem solid black;
 }
 
 .btn-box button {
   box-sizing: border-box;
   appearance: none;
   background-color: transparent;
-  border: 2px solid #a99bf6;
+  border: 0.2rem solid #a99bf6;
   border-radius: 0.6em;
   color: #a99bf6;
   cursor: pointer;
@@ -23,9 +23,9 @@
   text-decoration: none;
   text-align: center;
   text-transform: uppercase;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 700;
-  margin-bottom: 20px;
+  margin-bottom: 2rem;
 }
 
 .btn-box button:hover,

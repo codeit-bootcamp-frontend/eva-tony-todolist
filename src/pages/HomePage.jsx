@@ -17,7 +17,7 @@ const HomePage = () => {
   const [dotDates, setDotDates] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedTodoList, setSelectedTodoList] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   const { sendRequest: getDotDates } = useHttp(setDotDates);
   const { sendRequest: getSelectedTodoList } = useHttp(setSelectedTodoList);
@@ -37,36 +37,46 @@ const HomePage = () => {
     setIsLoggedIn(true);
   };
 
+  const handleClickWithOutAuth = () => {
+    setIsLoggedIn(false);
+  };
+
   return (
     <div className={styles.container}>
       {!isLoggedIn && !localStorage.getItem("accessToken") && (
         <LoginModal onConfirm={onConfirm} />
       )}
-      <div className={styles["logo-wrap"]}>
+      {/* <div className={styles["logo-wrap"]}>
         <img className={styles.logo} src={CodoitLogo} />
+      </div> */}
+      <div onClick={handleClickWithOutAuth}>
+        <CalendarBox
+          dotDates={dotDates}
+          selectedDate={selectedDate}
+          onSelectedDate={setSelectedDate}
+        />
+        <div className={styles["share-box"]}>
+          <IoIosShareAlt size={"2em"} color={"#d9d9d9"} />
+        </div>
+        <TodoList
+          selectedTodoList={selectedTodoList}
+          onSelectedTodoList={setSelectedTodoList}
+          selectedDate={selectedDate}
+          getDotDates={getDotDates}
+        />
+        {/* <div className={styles["footer-wrap"]}>
+        <FooterNav
+          selectedTodoList={selectedTodoList}
+          onAddItem={setSelectedTodoList}
+        />
+      </div> */}
+        <div className={styles["button-box"]}>
+          <AddButton
+            selectedTodoList={selectedTodoList}
+            onAddItem={setSelectedTodoList}
+          />
+        </div>
       </div>
-      <CalendarBox
-        dotDates={dotDates}
-        selectedDate={selectedDate}
-        onSelectedDate={setSelectedDate}
-      />
-      <div className={styles["share-box"]}>
-        <IoIosShareAlt size={"2em"} color={"#d9d9d9"} />
-      </div>
-      <TodoList
-        selectedTodoList={selectedTodoList}
-        onSelectedTodoList={setSelectedTodoList}
-        selectedDate={selectedDate}
-        getDotDates={getDotDates}
-      />
-      {/* <AddButton
-        selectedTodoList={selectedTodoList}
-        onAddItem={setSelectedTodoList}
-      /> */}
-      <FooterNav
-        selectedTodoList={selectedTodoList}
-        onAddItem={setSelectedTodoList}
-      />
     </div>
   );
 };

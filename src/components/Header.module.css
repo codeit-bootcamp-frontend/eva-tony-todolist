@@ -1,0 +1,15 @@
+.logo-wrap {
+  max-width: 35rem;
+  display: flex;
+  justify-content: flex-end;
+  position: sticky;
+  top: 0;
+  margin: 0 auto;
+  padding: 0 1.8rem;
+  background-color: white;
+  z-index: 5;
+}
+
+.logo {
+  width: 8rem;
+}

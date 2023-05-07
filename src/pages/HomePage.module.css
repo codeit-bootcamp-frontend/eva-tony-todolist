@@ -1,19 +1,33 @@
 .container {
-  width: 350px;
-  padding: 24px;
+  width: 35rem;
+  padding: 2.4rem;
   margin: 0 auto;
+  position: relative;
 }
 
 .logo-wrap {
   display: flex;
   justify-content: flex-end;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 5;
 }
 
 .logo {
-  width: 80px;
+  width: 8rem;
 }
 
 .share-box {
   display: flex;
   justify-content: end;
+}
+.button-box {
+  position: fixed;
+  z-index: 8;
+  left: calc(50% - 2.5rem);
+  bottom: 1rem;
+  border: 5px solid white;
+  border-radius: 30px;
+  box-shadow: rgba(17, 17, 26, 0.1) 0 -0.8rem 1.6rem;
 }
