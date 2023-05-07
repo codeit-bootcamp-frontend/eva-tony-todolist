@@ -3,7 +3,6 @@ import useHttp from "@hooks/useHttp";
 import styles from "@components/TodoItem.module.css";
 import parseDateToString from "@library/parseDateToString";
 // Import styles of the react-swipe-to-delete-component
-
 import "react-swipe-to-delete-component/dist/swipe-to-delete.css";
 import { SlPencil } from "react-icons/Sl";
 
@@ -51,20 +50,12 @@ const TodoItem = ({
         putTodoItem();
       }
     }
-      if (!update) {
-        postTodoItem(item);
-      } else {
-        putTodoItem();
-      }
-    }
   };
 
   const handleEnter = (e) => {
-
     if (e.key === "Enter") {
       const { value } = event.target;
       if (value.trim() === "") {
-
         const filteredTodoList = selectedTodoList.filter(
           (todo) => todo.content !== ""
         );
@@ -74,13 +65,6 @@ const TodoItem = ({
         item.content = value;
 
         onSelectedTodoList([...selectedTodoList]);
-        if (!update) {
-          postTodoItem(item);
-        } else {
-          putTodoItem();
-        }
-      }
-    }
         if (!update) {
           postTodoItem(item);
         } else {
