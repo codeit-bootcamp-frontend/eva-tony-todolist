@@ -24,7 +24,7 @@ const TodoList = ({
       );
 
       onSelectedTodoList(filteredTodoList);
-      return deleteItem({ url: `api/todo/${item.id}`, method: "DELETE" });
+      return deleteItem({ url: `api/todo/${item.id}/`, method: "DELETE" });
     };
   };
 
