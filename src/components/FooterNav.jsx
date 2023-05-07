@@ -1,27 +1,35 @@
+<<<<<<< HEAD
 import React from 'react';
 import styles from '@components/FooterNav.module.css';
 import { BsCalendar2Date } from 'react-icons/Bs';
 import { AiOutlineUser } from 'react-icons/Ai';
 import LoginModal from '@components/LoginModal';
+=======
+import React from "react";
+import styles from "@components/FooterNav.module.css";
+import { BsCalendar2Date } from "react-icons/bs";
+import { AiOutlineUser } from "react-icons/ai";
+import LoginModal from "@components/LoginModal";
+>>>>>>> 7c1df049119bbd87c84db9f82ec3c89be4eb5da6
 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const FooterNav = ({ selectedTodoList, onAddItem }) => {
   const navigate = useNavigate();
   const goToHome = () => {
-    navigate('/');
+    navigate("/");
   };
 
   const goToUserInfo = () => {
-    if (localStorage.getItem('accessToken')) {
-      navigate('/user');
+    if (localStorage.getItem("accessToken")) {
+      navigate("/user");
     }
   };
 
   return (
-    <div className={styles['footer-box']}>
-      <BsCalendar2Date onClick={goToHome} style={{ cursor: 'pointer' }} />
-      <AiOutlineUser onClick={goToUserInfo} style={{ cursor: 'pointer' }} />
+    <div className={styles["footer-box"]}>
+      <BsCalendar2Date onClick={goToHome} style={{ cursor: "pointer" }} />
+      <AiOutlineUser onClick={goToUserInfo} style={{ cursor: "pointer" }} />
     </div>
   );
 };
