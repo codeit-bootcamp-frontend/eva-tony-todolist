@@ -1,8 +1,8 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import styles from '@components/LoginModal.module.css';
-import { IoMdCloseCircleOutline } from 'react-icons/io';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import ReactDOM from "react-dom";
+import styles from "@components/LoginModal.module.css";
+import { IoMdCloseCircleOutline } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
 const Backdrop = ({ onConfirm }) => {
   return <div className={styles.backdrop} onClick={onConfirm}></div>;
@@ -12,17 +12,17 @@ const ModalOverlay = ({ onConfirm }) => {
   const navigate = useNavigate();
 
   const goToLogin = () => {
-    navigate('/login');
-    localStorage.removeItem('accessToken');
+    navigate("/login");
+    localStorage.removeItem("accessToken");
   };
 
   return (
     <div className={styles.modal}>
       <div>
         <IoMdCloseCircleOutline
-          size={'3rem'}
+          size={"3rem"}
           onClick={onConfirm}
-          style={{ cursor: 'pointer', marginBottom: '1rem' }}
+          style={{ cursor: "pointer", marginBottom: "1rem" }}
         />
       </div>
       <p>로그인을 해야 서비스를 이용할 수 있어요!</p>
@@ -39,11 +39,11 @@ const LoginModal = ({ onConfirm }) => {
     <>
       {ReactDOM.createPortal(
         <Backdrop onConfirm={onConfirm} />,
-        document.getElementById('backdrop-root')
+        document.getElementById("backdrop-root")
       )}
       {ReactDOM.createPortal(
         <ModalOverlay onConfirm={onConfirm} />,
-        document.getElementById('overlay-root')
+        document.getElementById("overlay-root")
       )}
     </>
   );

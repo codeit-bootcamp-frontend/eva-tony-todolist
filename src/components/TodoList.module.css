@@ -1,8 +1,8 @@
 .todolist-container {
-  height: 40rem;
+  max-height: 40rem;
   padding: 1rem;
   overflow-y: scroll;
-  margin-bottom: 8rem;
+  margin-bottom: 3rem;
 }
 
 .todolist-container::-webkit-scrollbar {

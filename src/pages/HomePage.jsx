@@ -27,6 +27,7 @@ const HomePage = () => {
       url: `api/todo/?date=${parseDateToString(selectedDate)}`,
     });
   }, [selectedDate]);
+
   useEffect(() => {
     getDotDates({
       url: `api/dotdates/`,

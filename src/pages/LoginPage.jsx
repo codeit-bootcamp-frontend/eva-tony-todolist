@@ -1,23 +1,23 @@
-import React, { useRef } from 'react';
-import styles from '@pages/LoginPage.module.css';
-import logo from '@assets/codoit-logo.svg';
-import kakao from '@assets/kakao.svg';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ClimbingBoxLoader } from 'react-spinners';
+import React, { useRef } from "react";
+import styles from "@pages/LoginPage.module.css";
+import logo from "@assets/codoit-logo.svg";
+import kakao from "@assets/kakao.svg";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { ScaleLoader } from "react-spinners";
 
 const cssOverride = {
-  position: 'absolute',
-  top: '40%',
-  left: '33%',
+  position: "absolute",
+  top: "40%",
+  left: "33%",
 };
 
 const LoginPage = ({ KAKAO_REDIRECT_URI }) => {
   const idRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{8,20}$/;
 
-  const [userId, setUserId] = useState('');
-  const [userPassword, setUserPassword] = useState('');
+  const [userId, setUserId] = useState("");
+  const [userPassword, setUserPassword] = useState("");
 
   const changeIdHandler = (e) => {
     setUserId(e.target.value);
@@ -35,23 +35,24 @@ const LoginPage = ({ KAKAO_REDIRECT_URI }) => {
     if (idRegex.test(userId) && passwordRegex.test(userPassword)) {
       setIsLoading(true);
       setTimeout(() => {
-        localStorage.setItem('accessToken', 'asdfkc');
+        localStorage.setItem("accessToken", "asdfkc");
         setIsLoading(false);
-        navigate('/');
-      }, 3000);
+        navigate("/");
+      }, 30000);
     }
   };
 
   return (
     <div className={styles.container}>
-      <ClimbingBoxLoader
+      <ScaleLoader
         cssOverride={cssOverride}
         loading={isLoading}
-        size={150}
+        size={25}
         aria-label="Loading Spinner"
         data-testid="loader"
+        color="#a99bf6"
       />
-      <div className={styles['img-box']}>
+      <div className={styles["img-box"]}>
         <img src={logo} />
       </div>
       <p>
@@ -65,7 +66,7 @@ const LoginPage = ({ KAKAO_REDIRECT_URI }) => {
           placeholder="아이디를 입력해주세요"
         />
         {userId && !idRegex.test(userId) && (
-          <p className={styles['p-id']}>이메일 형식에 알맞게 작성해주세요.</p>
+          <p className={styles["p-id"]}>이메일 형식에 알맞게 작성해주세요.</p>
         )}
         <label>비밀번호</label>
         <input
@@ -75,14 +76,14 @@ const LoginPage = ({ KAKAO_REDIRECT_URI }) => {
           type="password"
         />
         {userPassword && !passwordRegex.test(userPassword) && (
-          <p className={styles['p-pwd']}>
+          <p className={styles["p-pwd"]}>
             영어와 숫자를 조합한 8글자 이상 입력해주세요.
           </p>
         )}
         <button>로그인</button>
       </form>
-      <p className={styles['search-password']}>비밀번호 찾기</p>
-      <div className={styles['social-login']}>
+      <p className={styles["search-password"]}>비밀번호 찾기</p>
+      <div className={styles["social-login"]}>
         <span>소셜 로그인</span>
         <a href={KAKAO_REDIRECT_URI}>
           <img src={kakao} alt="kakao" />
