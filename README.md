@@ -1,4 +1,8 @@
 # eva와 tony의 [CODOIT-TOVA](https://codoit-tova.netlify.app/)
+## 멘토에게
+- commit 단위가 다소 지저분합니다😭 수많은 시행착오 끝에 만들었어요🥶 
+- state와 prop, custom hooks, 구조를 중점적으로 봐주세요!
+- 애니메이션 적용을 위해 라이브러리를 사용하였기 때문에 그부분은 제외하고 봐주셔도 괜찮습니다!
 
 # **📍**프로젝트 소개
 
@@ -6,7 +10,7 @@
 > 
 - Codeit bootcamp 0기의 위클리미션 및 페어프로그래밍으로 진행된 사이드 프로젝트입니다.
 - 팀 데일리 스크럼때 사용할 수 있는 “코두잇” 사이트🔥🔥
-- 모바일에 최적화된 웹 서비스입니다.
+- 모바일에 최적화된 웹 서비스입니다. 모바일로 확인해 주세요!
 - 여기서 확인하세요 👉https://codoit-tova.netlify.app/
 
 # **📚** 기술 stack
@@ -67,6 +71,7 @@ VITE_CLIENT_URL = ( 서버 url)
         - [x]  content를 작성하고 enter key를 누르면 todoItem이 저장된다.
         - [x]  content가 빈 문자열일 때는 해당 todoItem은 사라진다.
     - [x]  양쪽으로 스와이프하면 삭제가 된다.
+    - [ ]  
     - [x]  아이템 왼쪽에 체크 기능을 통해 완료 유무를 알수 있다.
         - [x]  완료된 아이템의 경우 text에 line-through가 간다.
     - [x]  각 아이템은 drag & drop이 가능하다 ← react beautiful drag & drop
