@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useRef, useEffect, useState } from "react";
+import ReactDOM from "react-dom";
 import Calendar from "react-calendar";
 import "@components/CalendarBox.css";
-import "react-calendar/dist/Calendar.css";
+import "@components/Calendar.css";
 import moment from "moment";
 
 const CalendarBox = ({ dotDates, selectedDate, onSelectedDate }) => {
   return (
     <>
       <Calendar
+        view="month"
         onChange={onSelectedDate}
         formatDay={(locale, date) => moment(date).format("DD")}
         value={selectedDate}
