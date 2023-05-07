@@ -2,7 +2,7 @@ import React, { useEffect, useCallback } from "react";
 import qs from "qs";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-const CLIENT_URL = import.meta.env.VITE_CLIENT_URLL;
+const CLIENT_URL = import.meta.env.VITE_CLIENT_URL;
 
 const REST_API_KEY = "75796b33aac62e190e50bcc064cce581";
 const REDIRECT_URI = `${CLIENT_URL}oauth/kakao/callback`;

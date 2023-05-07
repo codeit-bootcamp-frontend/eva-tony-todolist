@@ -6,7 +6,7 @@ import Layout from "@pages/Layout";
 import Auth from "@pages/Auth";
 import { Routes, Route } from "react-router-dom";
 import User from "@pages/User";
-const CLIENT_URL = import.meta.env.VITE_CLIENT_URLL;
+const CLIENT_URL = import.meta.env.VITE_CLIENT_URL;
 
 const REST_API_KEY = "75796b33aac62e190e50bcc064cce581";
 const REDIRECT_URI = `${CLIENT_URL}oauth/kakao/callback`;
