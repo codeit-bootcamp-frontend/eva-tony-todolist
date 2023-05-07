@@ -169,6 +169,6 @@
   margin-left: 0.1rem;
 }
 
-.react-calendar__navigation__label::hover {
+.react-calendar__navigation__label:hover {
   background-color: #fff;
 }

@@ -13,6 +13,7 @@ const CalendarBox = ({ dotDates, selectedDate, onSelectedDate }) => {
         onChange={onSelectedDate}
         formatDay={(locale, date) => moment(date).format("DD")}
         value={selectedDate}
+        calendarType="US"
         className="mx-auto w-full text-sm border-b"
         tileContent={({ date, view }) => {
           if (dotDates?.find((x) => x === moment(date).format("YYYY-MM-DD"))) {
