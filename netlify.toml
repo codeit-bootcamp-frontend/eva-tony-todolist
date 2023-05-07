@@ -1,0 +1,8 @@
+[build]
+  command = "npm run build"
+
+  rollupOpts = { 
+    external: [ 
+      'react-icons/Io'
+    ]
+  }
