@@ -1,18 +1,15 @@
-import Calendar from "react-calendar";
-import "./App.css";
-import HomePage from "@pages/HomePage";
-import LoginPage from "@pages/LoginPage";
-import Layout from "@pages/Layout";
-import Auth from "@pages/Auth";
-import { Routes, Route } from "react-router-dom";
-import User from "@pages/User";
-import Temp from "@components/Temp";
-
-import PetalAnimation from "@components/PetalAnimation";
+import './App.css';
+import HomePage from '@pages/HomePage';
+import LoginPage from '@pages/LoginPage';
+import Layout from '@pages/Layout';
+import Auth from '@pages/Auth';
+import { Routes, Route } from 'react-router-dom';
+import User from '@pages/User';
+import Temp from '@components/Temp';
 
 const CLIENT_URL = import.meta.env.VITE_CLIENT_URL;
 
-const REST_API_KEY = "75796b33aac62e190e50bcc064cce581";
+const REST_API_KEY = '75796b33aac62e190e50bcc064cce581';
 const REDIRECT_URI = `${CLIENT_URL}oauth/kakao/callback`;
 const KAKAO_REDIRECT_URI = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
@@ -21,11 +18,10 @@ function App() {
     <>
       <div
         style={{
-          position: "absolute",
-          width: "100%",
-          // height: "100%",
+          position: 'absolute',
+          width: '100%',
           zIndex: -1,
-          backgroundColor: "black",
+          backgroundColor: 'black',
         }}
       >
         <Temp />
