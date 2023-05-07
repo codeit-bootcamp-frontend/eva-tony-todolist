@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-import './App.css';
-
 import './App.css';
 import HomePage from '@pages/HomePage';
 import LoginPage from '@pages/LoginPage';
@@ -8,20 +5,8 @@ import Layout from '@pages/Layout';
 import Auth from '@pages/Auth';
 import { Routes, Route } from 'react-router-dom';
 import User from '@pages/User';
-=======
-import Calendar from "react-calendar";
-import "./App.css";
-import HomePage from "@pages/HomePage";
-import LoginPage from "@pages/LoginPage";
-import Layout from "@pages/Layout";
-import Auth from "@pages/Auth";
-import { Routes, Route } from "react-router-dom";
-import User from "@pages/User";
-import Temp from "@components/Temp";
+import Temp from '@components/Temp';
 
-import PetalAnimation from "@components/PetalAnimation";
-
->>>>>>> 7c1df049119bbd87c84db9f82ec3c89be4eb5da6
 const CLIENT_URL = import.meta.env.VITE_CLIENT_URL;
 
 const REST_API_KEY = '75796b33aac62e190e50bcc064cce581';
@@ -33,11 +18,10 @@ function App() {
     <>
       <div
         style={{
-          position: "absolute",
-          width: "100%",
-          // height: "100%",
+          position: 'absolute',
+          width: '100%',
           zIndex: -1,
-          backgroundColor: "black",
+          backgroundColor: 'black',
         }}
       >
         <Temp />
