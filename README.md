@@ -53,29 +53,30 @@
 - white
 - black
 
+```
 eva-tony-todolist
 ├─ .eslintrc.cjs
 ├─ .git
-│ ├─ COMMIT_EDITMSG
-│ ├─ FETCH_HEAD
-│ ├─ HEAD
-│ ├─ ORIG_HEAD
-│ ├─ config
-│ ├─ description
-│ ├─ hooks
-│ │ ├─ applypatch-msg.sample
-│ │ ├─ commit-msg.sample
-│ │ ├─ fsmonitor-watchman.sample
-│ │ ├─ post-update.sample
-│ │ ├─ pre-applypatch.sample
-│ │ ├─ pre-commit.sample
-│ │ ├─ pre-merge-commit.sample
-│ │ ├─ pre-push.sample
-│ │ ├─ pre-rebase.sample
-│ │ ├─ pre-receive.sample
-│ │ ├─ prepare-commit-msg.sample
-│ │ ├─ push-to-checkout.sample
-│ │ └─ update.sample
+│  ├─ COMMIT_EDITMSG
+│  ├─ FETCH_HEAD
+│  ├─ HEAD
+│  ├─ ORIG_HEAD
+│  ├─ config
+│  ├─ description
+│  ├─ hooks
+│  │  ├─ applypatch-msg.sample
+│  │  ├─ commit-msg.sample
+│  │  ├─ fsmonitor-watchman.sample
+│  │  ├─ post-update.sample
+│  │  ├─ pre-applypatch.sample
+│  │  ├─ pre-commit.sample
+│  │  ├─ pre-merge-commit.sample
+│  │  ├─ pre-push.sample
+│  │  ├─ pre-rebase.sample
+│  │  ├─ pre-receive.sample
+│  │  ├─ prepare-commit-msg.sample
+│  │  ├─ push-to-checkout.sample
+│  │  └─ update.sample
 ├─ .gitignore
 ├─ README.md
 ├─ data.json
@@ -84,47 +85,49 @@ eva-tony-todolist
 ├─ package-lock.json
 ├─ package.json
 ├─ public
-│ └─ \_redirects
+│  └─ _redirects
 ├─ src
-│ ├─ App.css
-│ ├─ App.jsx
-│ ├─ assets
-│ │ ├─ codoit-logo.png
-│ │ ├─ codoit-logo.svg
-│ │ ├─ kakao.svg
-│ │ └─ petal.png
-│ ├─ components
-│ │ ├─ AddButton.jsx
-│ │ ├─ AddButton.module.css
-│ │ ├─ Calendar.css
-│ │ ├─ CalendarBox.css
-│ │ ├─ CalendarBox.jsx
-│ │ ├─ FooterNav.jsx
-│ │ ├─ FooterNav.module.css
-│ │ ├─ Header.jsx
-│ │ ├─ Header.module.css
-│ │ ├─ LoginModal.jsx
-│ │ ├─ LoginModal.module.css
-│ │ ├─ MenuBar.jsx
-│ │ ├─ PetalAnimation.jsx
-│ │ ├─ Temp.jsx
-│ │ ├─ TodoItem.jsx
-│ │ ├─ TodoItem.module.css
-│ │ ├─ TodoList.jsx
-│ │ └─ TodoList.module.css
-│ ├─ hooks
-│ │ └─ useHttp.jsx
-│ ├─ library
-│ │ ├─ parseDateToString.js
-│ │ └─ parseObjectToList.js
-│ ├─ main.jsx
-│ └─ pages
-│ ├─ Auth.jsx
-│ ├─ HomePage.jsx
-│ ├─ HomePage.module.css
-│ ├─ Layout.jsx
-│ ├─ LoginPage.jsx
-│ ├─ LoginPage.module.css
-│ ├─ User.jsx
-│ └─ User.module.css
+│  ├─ App.css
+│  ├─ App.jsx
+│  ├─ assets
+│  │  ├─ codoit-logo.png
+│  │  ├─ codoit-logo.svg
+│  │  ├─ kakao.svg
+│  │  └─ petal.png
+│  ├─ components
+│  │  ├─ AddButton.jsx
+│  │  ├─ AddButton.module.css
+│  │  ├─ Calendar.css
+│  │  ├─ CalendarBox.css
+│  │  ├─ CalendarBox.jsx
+│  │  ├─ FooterNav.jsx
+│  │  ├─ FooterNav.module.css
+│  │  ├─ Header.jsx
+│  │  ├─ Header.module.css
+│  │  ├─ LoginModal.jsx
+│  │  ├─ LoginModal.module.css
+│  │  ├─ MenuBar.jsx
+│  │  ├─ PetalAnimation.jsx
+│  │  ├─ Temp.jsx
+│  │  ├─ TodoItem.jsx
+│  │  ├─ TodoItem.module.css
+│  │  ├─ TodoList.jsx
+│  │  └─ TodoList.module.css
+│  ├─ hooks
+│  │  └─ useHttp.jsx
+│  ├─ library
+│  │  ├─ parseDateToString.js
+│  │  └─ parseObjectToList.js
+│  ├─ main.jsx
+│  └─ pages
+│     ├─ Auth.jsx
+│     ├─ HomePage.jsx
+│     ├─ HomePage.module.css
+│     ├─ Layout.jsx
+│     ├─ LoginPage.jsx
+│     ├─ LoginPage.module.css
+│     ├─ User.jsx
+│     └─ User.module.css
 └─ vite.config.js
+
+```
