@@ -9,7 +9,7 @@ import { SlPencil } from 'react-icons/sl';
 import {
   MdOutlineCheckBox,
   MdOutlineCheckBoxOutlineBlank,
-} from 'react-icons/Md';
+} from 'react-icons/md';
 
 const TodoItem = ({
   item,
