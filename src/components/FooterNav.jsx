@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '@components/FooterNav.module.css';
-import { BsCalendar2Date } from 'react-icons/bs';
-import { AiOutlineUser } from 'react-icons/ai';
+import { BsCalendar2Date } from 'react-icons/Bs';
+import { AiOutlineUser } from 'react-icons/Ai';
 import LoginModal from '@components/LoginModal';
 
 import { useNavigate } from 'react-router-dom';

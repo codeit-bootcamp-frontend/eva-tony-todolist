@@ -1,16 +1,15 @@
-import React, { useRef, useEffect, useState } from "react";
-import useHttp from "@hooks/useHttp";
-import styles from "@components/TodoItem.module.css";
-import parseDateToString from "@library/parseDateToString";
+import React, { useRef, useEffect, useState } from 'react';
+import useHttp from '@hooks/useHttp';
+import styles from '@components/TodoItem.module.css';
+import parseDateToString from '@library/parseDateToString';
 // Import styles of the react-swipe-to-delete-component
-import "react-swipe-to-delete-component/dist/swipe-to-delete.css";
+import 'react-swipe-to-delete-component/dist/swipe-to-delete.css';
+import { SlPencil } from 'react-icons/Sl';
 
 import {
   MdOutlineCheckBox,
   MdOutlineCheckBoxOutlineBlank,
-} from "react-icons/md";
-
-import { HiOutlineTrash } from "react-icons/hi";
+} from 'react-icons/Md';
 
 const TodoItem = ({
   item,
@@ -21,8 +20,9 @@ const TodoItem = ({
   const { sendRequest } = useHttp(onSelectedTodoList);
   const { sendRequest: putIsDone } = useHttp();
 
-  const { id, is_done, content } = item;
+  let { id, is_done, content } = item;
   const [isDone, setIsDone] = useState(is_done);
+  const [update, setUpdate] = useState(false);
 
   const inputRef = useRef();
 
@@ -34,9 +34,9 @@ const TodoItem = ({
 
   const handleBlur = (event) => {
     const { value } = event.target;
-    if (value.trim() === "") {
+    if (value.trim() === '') {
       const filteredTodoList = selectedTodoList.filter(
-        (todo) => todo.content !== ""
+        (todo) => todo.content !== ''
       );
 
       onSelectedTodoList([...filteredTodoList]);
@@ -44,16 +44,20 @@ const TodoItem = ({
       item.content = value;
 
       onSelectedTodoList([...selectedTodoList]);
+    }
+    if (!update) {
       const response = postTodoItem(item);
+    } else {
+      putTodoItem();
     }
   };
 
   const handleEnter = (e) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       const { value } = event.target;
-      if (value.trim() === "") {
+      if (value.trim() === '') {
         const filteredTodoList = selectedTodoList.filter(
-          (todo) => todo.content !== ""
+          (todo) => todo.content !== ''
         );
 
         onSelectedTodoList([...filteredTodoList]);
@@ -61,17 +65,20 @@ const TodoItem = ({
         item.content = value;
 
         onSelectedTodoList([...selectedTodoList]);
-        const response = postTodoItem(item);
       }
     }
-    return;
+    if (!update) {
+      const response = postTodoItem(item);
+    } else {
+      putTodoItem();
+    }
   };
 
   const postTodoItem = async (item) => {
     await sendRequest({
       url: `api/todo/`,
-      headers: { "Content-Type": "application/json" },
-      method: "POST",
+      headers: { 'Content-Type': 'application/json' },
+      method: 'POST',
       body: {
         date: parseDateToString(selectedDate),
         todo_items: [{ content: item.content, is_done: false }],
@@ -79,21 +86,35 @@ const TodoItem = ({
     });
   };
 
+  const putTodoItem = async () => {
+    await putIsDone({
+      url: `api/todo/${id}`,
+      headers: { 'Content-Type': 'application/json' },
+      method: 'PUT',
+      body: {
+        content: inputRef.current.value,
+        is_done,
+      },
+    });
+  };
+
   const isDoneIcon = isDone ? (
     <MdOutlineCheckBox
       className={styles.checkbox}
-      size={"2rem"}
-      color={"#735bf2"}
-      onClick={() => {
+      size={'2rem'}
+      color={'#735bf2'}
+      onClick={(e) => {
         setIsDone(!isDone);
+        e.stopPropagation();
         sendIsDone();
       }}
     />
   ) : (
     <MdOutlineCheckBoxOutlineBlank
-      size={"2rem"}
-      color={"#735bf2"}
-      onClick={() => {
+      size={'2rem'}
+      color={'#735bf2'}
+      onClick={(e) => {
+        e.stopPropagation();
         setIsDone(!isDone);
         sendIsDone();
       }}
@@ -103,23 +124,35 @@ const TodoItem = ({
   const sendIsDone = () => {
     putIsDone({
       url: `api/todo/${id}/`,
-      headers: { "Content-Type": "application/json" },
-      method: "PUT",
+      headers: { 'Content-Type': 'application/json' },
+      method: 'PUT',
       body: {
         is_done: isDone,
       },
     });
   };
 
+  const updateItem = () => {
+    content = '';
+    let findItem = selectedTodoList?.find((item) => item.id === id);
+    findItem.content = inputRef?.current?.value;
+    onSelectedTodoList([...selectedTodoList]);
+    setUpdate(true);
+  };
+
   return (
-    <div className={styles.item} style={{ background: "#fff" }}>
+    <div className={styles.item} style={{ background: '#fff' }}>
       {content ? (
         <>
           <div className={styles.left}>
             {isDoneIcon}
             <span className={styles.content}>{content}</span>
           </div>
-          <HiOutlineTrash size={"1.6rem"} color={"var(--primary-color)"} />
+          <SlPencil
+            onClick={updateItem}
+            size={'1.6rem'}
+            color={'var(--primary-color)'}
+          />
         </>
       ) : (
         <input

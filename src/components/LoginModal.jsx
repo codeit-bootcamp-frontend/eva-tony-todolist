@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import styles from '@components/LoginModal.module.css';
-import { IoMdCloseCircleOutline } from 'react-icons/io';
+import { IoMdCloseCircleOutline } from 'react-icons/Io';
 import { useNavigate } from 'react-router-dom';
 
 const Backdrop = ({ onConfirm }) => {

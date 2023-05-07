@@ -4,12 +4,13 @@ import logo from '@assets/codoit-logo.svg';
 import kakao from '@assets/kakao.svg';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ClimbingBoxLoader } from 'react-spinners';
+import { ScaleLoader } from 'react-spinners';
 
 const cssOverride = {
   position: 'absolute',
   top: '40%',
-  left: '33%',
+  left: '40%',
+  zIndex: '1',
 };
 
 const LoginPage = ({ KAKAO_REDIRECT_URI }) => {
@@ -44,12 +45,14 @@ const LoginPage = ({ KAKAO_REDIRECT_URI }) => {
 
   return (
     <div className={styles.container}>
-      <ClimbingBoxLoader
+      <ScaleLoader
         cssOverride={cssOverride}
         loading={isLoading}
-        size={150}
         aria-label="Loading Spinner"
         data-testid="loader"
+        color="#a99bf6"
+        width={10}
+        height={60}
       />
       <div className={styles['img-box']}>
         <img src={logo} />
