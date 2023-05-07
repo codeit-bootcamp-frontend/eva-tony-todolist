@@ -67,7 +67,6 @@ VITE_CLIENT_URL = ( 서버 url)
         - [x]  content를 작성하고 enter key를 누르면 todoItem이 저장된다.
         - [x]  content가 빈 문자열일 때는 해당 todoItem은 사라진다.
     - [x]  양쪽으로 스와이프하면 삭제가 된다.
-    - [ ]  
     - [x]  아이템 왼쪽에 체크 기능을 통해 완료 유무를 알수 있다.
         - [x]  완료된 아이템의 경우 text에 line-through가 간다.
     - [x]  각 아이템은 drag & drop이 가능하다 ← react beautiful drag & drop
