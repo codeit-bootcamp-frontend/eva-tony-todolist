@@ -2,13 +2,13 @@ import React, { useEffect, useCallback } from 'react';
 import qs from 'qs';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-const BASE_URL = import.meta.env.VITE_BASE_URL;
+const CLIENT_URL = import.meta.env.VITE_CLIENT_URL;
 
 const REST_API_KEY = '75796b33aac62e190e50bcc064cce581';
-const REDIRECT_URI = `https://codoit-tova.netlify.app/oauth/kakao/callback`;
+const REDIRECT_URI = `${CLIENT_URL}oauth/kakao/callback`;
 const CLIENT_SECRET = 'CnTc6hyr4KUvRvUXCesPDAhXXJCQszeZ';
 
-const Auth = ({ setUserInfo }) => {
+const Auth = () => {
   const navigate = useNavigate();
   const code = new URL(window.location.href).searchParams.get('code');
 
@@ -19,7 +19,6 @@ const Auth = ({ setUserInfo }) => {
     code: code,
     client_secret: CLIENT_SECRET,
   });
-  console.log(payload);
 
   const kakaoLogin = useCallback(async () => {
     try {
