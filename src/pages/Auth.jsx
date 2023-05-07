@@ -31,7 +31,7 @@ const Auth = ({ setUserInfo }) => {
         },
         data: payload,
       });
-
+      const abd = 3;
       const ACCESS_TOKEN = res.data.access_token;
 
       localStorage.setItem("accessToken", ACCESS_TOKEN);
