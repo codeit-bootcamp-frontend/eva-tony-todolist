@@ -19,7 +19,11 @@ const TodoItem = ({
   selectedDate,
 }) => {
   const { sendRequest } = useHttp(onSelectedTodoList);
-  const { id, isDone, content } = item;
+  const { sendRequest: putIsDone } = useHttp();
+
+  const { id, is_done, content } = item;
+  const [isDone, setIsDone] = useState(is_done);
+  console.log(is_done);
 
   const inputRef = useRef();
 
@@ -72,11 +76,23 @@ const TodoItem = ({
     <MdOutlineCheckBoxOutlineBlank size={"2rem"} color={"#735bf2"} />
   );
 
+  const sendIsDone = () => {
+    putIsDone({
+      url: `api/todo/${id}/`,
+      headers: { "Content-Type": "application/json" },
+      method: "PUT",
+      body: {
+        is_done: isDone,
+      },
+    });
+  };
+
   return (
     <div
       className={styles.item}
       onClick={() => {
         setIsDone(!isDone);
+        sendIsDone();
       }}
       style={{ background: "#fff" }}
     >

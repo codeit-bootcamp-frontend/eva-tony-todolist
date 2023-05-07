@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 
 import "react-calendar/dist/Calendar.css";
-import CodoitLogo from "@assets/codoit-logo.png";
+import CodoitLogo from "@assets/codoit-logo.svg";
 import styles from "@pages/HomePage.module.css";
 import useHttp from "@hooks/useHttp";
 import CalendarBox from "@components/CalendarBox";
@@ -17,8 +17,7 @@ const HomePage = () => {
   const [dotDates, setDotDates] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedTodoList, setSelectedTodoList] = useState([]);
-
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const { sendRequest: getDotDates } = useHttp(setDotDates);
   const { sendRequest: getSelectedTodoList } = useHttp(setSelectedTodoList);
@@ -34,9 +33,15 @@ const HomePage = () => {
     });
   }, [selectedTodoList]);
 
+  const onConfirm = () => {
+    setIsLoggedIn(true);
+  };
+
   return (
     <div className={styles.container}>
-      {/* {isLogin && <LoginModal onConfirm={onConfirm} />} */}
+      {!isLoggedIn && !localStorage.getItem("accessToken") && (
+        <LoginModal onConfirm={onConfirm} />
+      )}
       <div className={styles["logo-wrap"]}>
         <img className={styles.logo} src={CodoitLogo} />
       </div>
