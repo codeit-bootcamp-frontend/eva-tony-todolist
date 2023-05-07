@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 
 import 'react-calendar/dist/Calendar.css';
-import CodoitLogo from '@assets/codoit-logo.svg';
 import styles from '@pages/HomePage.module.css';
 import useHttp from '@hooks/useHttp';
 import CalendarBox from '@components/CalendarBox';
@@ -9,7 +8,7 @@ import TodoList from '@components/TodoList';
 import parseDateToString from '@library/parseDateToString';
 import AddButton from '@components/AddButton';
 
-import { IoIosShareAlt } from 'react-icons/Io';
+import { IoIosShareAlt } from 'react-icons/io';
 import FooterNav from '@components/FooterNav';
 import LoginModal from '@components/LoginModal';
 
