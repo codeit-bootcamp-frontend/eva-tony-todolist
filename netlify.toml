@@ -1,9 +1,8 @@
 [build]
   command = "npm run build"
-  # Vite needs to know which packages to bundle and which to exclude
-  # so they are not included in the final bundle.
+
   rollupOpts = { 
     external: [ 
-      'react-icons/Io' # Add this line to exclude the Io icon
+      'react-icons/Io'
     ]
   }
