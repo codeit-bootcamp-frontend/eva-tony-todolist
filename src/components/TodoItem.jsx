@@ -4,12 +4,12 @@ import styles from "@components/TodoItem.module.css";
 import parseDateToString from "@library/parseDateToString";
 // Import styles of the react-swipe-to-delete-component
 import "react-swipe-to-delete-component/dist/swipe-to-delete.css";
-import { SlPencil } from "react-icons/sl";
+import { SlPencil } from "react-icons/Sl";
 
 import {
   MdOutlineCheckBox,
   MdOutlineCheckBoxOutlineBlank,
-} from "react-icons/md";
+} from "react-icons/Md";
 
 const TodoItem = ({
   item,

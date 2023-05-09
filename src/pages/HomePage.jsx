@@ -8,7 +8,7 @@ import TodoList from "@components/TodoList";
 import parseDateToString from "@library/parseDateToString";
 import AddButton from "@components/AddButton";
 
-import { IoIosShareAlt } from "react-icons/io";
+import { IoIosShareAlt } from "react-icons/Io";
 import FooterNav from "@components/FooterNav";
 import LoginModal from "@components/LoginModal";
 
