@@ -117,31 +117,10 @@ VITE_CLIENT_URL = ( 서버 url)
 eva-tony-todolist
 ├─ .eslintrc.cjs
 ├─ .git
-│  ├─ COMMIT_EDITMSG
-│  ├─ FETCH_HEAD
-│  ├─ HEAD
-│  ├─ ORIG_HEAD
-│  ├─ config
-│  ├─ description
-│  ├─ hooks
-│  │  ├─ applypatch-msg.sample
-│  │  ├─ commit-msg.sample
-│  │  ├─ fsmonitor-watchman.sample
-│  │  ├─ post-update.sample
-│  │  ├─ pre-applypatch.sample
-│  │  ├─ pre-commit.sample
-│  │  ├─ pre-merge-commit.sample
-│  │  ├─ pre-push.sample
-│  │  ├─ pre-rebase.sample
-│  │  ├─ pre-receive.sample
-│  │  ├─ prepare-commit-msg.sample
-│  │  ├─ push-to-checkout.sample
-│  │  └─ update.sample
 ├─ .gitignore
 ├─ README.md
 ├─ data.json
 ├─ index.html
-├─ netlify.yml
 ├─ package-lock.json
 ├─ package.json
 ├─ public
