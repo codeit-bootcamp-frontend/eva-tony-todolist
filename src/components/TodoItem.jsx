@@ -18,7 +18,8 @@ const TodoItem = ({
   selectedDate,
 }) => {
   const { sendRequest } = useHttp(onSelectedTodoList);
-  const { sendRequest: putIsDone } = useHttp();
+  const { sendRequest: putContent } = useHttp(); // setter가 매개변수로 없음
+  const { sendRequest: putIsDone } = useHttp(); // setter가 매개변수로 없음
 
   let { id, is_done, content } = item;
   const [isDone, setIsDone] = useState(is_done);
@@ -41,7 +42,7 @@ const TodoItem = ({
 
       onSelectedTodoList([...filteredTodoList]);
     } else {
-      item.content = value;
+      item.content = value; // /Q. 어떻게 바꿔야 할지..?
 
       onSelectedTodoList([...selectedTodoList]);
       if (!update) {
@@ -54,7 +55,7 @@ const TodoItem = ({
 
   const handleEnter = (e) => {
     if (e.key === "Enter") {
-      const { value } = event.target;
+      const { value } = e.target;
       if (value.trim() === "") {
         const filteredTodoList = selectedTodoList.filter(
           (todo) => todo.content !== ""
@@ -87,7 +88,7 @@ const TodoItem = ({
   };
 
   const putTodoItem = async () => {
-    await putIsDone({
+    await putContent({
       url: `api/todo/${id}/`,
       headers: { "Content-Type": "application/json" },
       method: "PUT",

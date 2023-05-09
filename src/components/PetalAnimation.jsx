@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import PetalImg from "@assets/petal.png";
+import PetalImg from "@assets/petal.svg";
 // 벚꽃 잎 컴포넌트
 function PetalAnimation({ canvasWidth, canvasHeight }) {
   const petalRef = useRef(null);
