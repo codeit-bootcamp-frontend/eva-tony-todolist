@@ -11,8 +11,8 @@ assignees: ''
 설명을 작성하세요.
 
 # Todo
-[ x ] todo
-[  ] todo
+- [ ] todo
+- [x] todo
 
 # ETC
 기타사항
