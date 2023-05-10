@@ -1,7 +1,7 @@
 ---
-name: "⚒️ FEATURE"
-about: Feature 작업 사항을 입력해주세요.
-title: "✅ FEATURE"
+name: "⚒️ \U0001F41E\U0001F9F9 Feature/ Bug / Refactor"
+about: 한 줄 요약이랑 동일하게 적으세요
+title: "⚒️ \U0001F41E\U0001F9F9 Feature/ Bug / Refactor"
 labels: ''
 assignees: ''
 
