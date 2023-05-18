@@ -1,16 +1,15 @@
-import React, { useEffect, useState, useCallback } from "react";
+import{ useEffect, useState } from "react";
 
 import "react-calendar/dist/Calendar.css";
 import styles from "@pages/HomePage.module.css";
 import useHttp from "@hooks/useHttp";
-import CalendarBox from "@components/CalendarBox";
-import TodoList from "@components/TodoList";
+import CalendarBox from "@components/Calendar/CalendarBox";
+import TodoList from "@components/Todo/TodoList";
 import parseDateToString from "@library/parseDateToString";
-import AddButton from "@components/AddButton";
+import AddButton from "@components/AddButton/AddButton";
 
 import { IoIosShareAlt } from "react-icons/Io";
-import FooterNav from "@components/FooterNav";
-import LoginModal from "@components/LoginModal";
+import LoginModal from "@components/LoginModal/LoginModal";
 
 const HomePage = () => {
   const [dotDates, setDotDates] = useState([]);

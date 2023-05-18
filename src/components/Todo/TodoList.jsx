@@ -1,6 +1,6 @@
 import React from 'react';
-import styles from '@components/TodoList.module.css';
-import TodoItem from '@components/TodoItem';
+import styles from '@components/Todo/TodoList.module.css';
+import TodoItem from '@components/Todo/TodoItem';
 
 // Import the react-swipe-to-delete-component
 import SwipeToDelete from 'react-swipe-to-delete-component';

@@ -1,8 +1,7 @@
-import React, { useState, useRef, useEffect } from "react";
+import  { useState, useEffect } from "react";
+import SeasonAnimation from "@components/BackgroundAnimation/SeasonAnimation";
 
-import SeasonAnimation from "@components/SeasonAnimation";
 const SeasonBackground = () => {
-  const canvasRef = useRef(null);
   const [canvasWidth, setCanvasWidth] = useState(window.innerWidth);
   const [canvasHeight, setCanvasHeight] = useState(window.innerHeight);
   const TOTAL = 100;

@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import useHttp from "@hooks/useHttp";
-import styles from "@components/TodoItem.module.css";
+import styles from "@components/Todo/TodoItem.module.css";
 import parseDateToString from "@library/parseDateToString";
 // Import styles of the react-swipe-to-delete-component
 import "react-swipe-to-delete-component/dist/swipe-to-delete.css";

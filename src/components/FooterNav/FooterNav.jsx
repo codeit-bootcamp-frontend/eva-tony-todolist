@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "@components/FooterNav.module.css";
+import styles from "@components/FooterNav/FooterNav.module.css";
 import { BsCalendar2Date } from "react-icons/Bs";
 import { AiOutlineUser } from "react-icons/Ai";
 

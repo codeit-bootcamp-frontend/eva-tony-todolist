@@ -5,7 +5,7 @@ import Layout from "@pages/Layout";
 import Auth from "@pages/Auth";
 import { Routes, Route } from "react-router-dom";
 import User from "@pages/User";
-import Temp from "@components/Temp";
+// import SeasonBackground from "@components/BackgroundAnimation/SeasonBackground";
 
 const CLIENT_URL = import.meta.env.VITE_CLIENT_URL;
 
