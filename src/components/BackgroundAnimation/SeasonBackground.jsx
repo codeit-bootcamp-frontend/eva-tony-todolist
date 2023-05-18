@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 
-import PetalAnimation from "@components/PetalAnimation";
-const Temp = () => {
+import SeasonAnimation from "@components/SeasonAnimation";
+const SeasonBackground = () => {
   const canvasRef = useRef(null);
   const [canvasWidth, setCanvasWidth] = useState(window.innerWidth);
   const [canvasHeight, setCanvasHeight] = useState(window.innerHeight);
@@ -25,7 +25,7 @@ const Temp = () => {
       }}
     >
       {Array.from({ length: TOTAL }).map((_, i) => (
-        <PetalAnimation
+        <SeasonAnimation
           key={i}
           canvasWidth={canvasWidth}
           canvasHeight={canvasHeight}
@@ -35,4 +35,4 @@ const Temp = () => {
   );
 };
 
-export default Temp;
+export default SeasonBackground;
