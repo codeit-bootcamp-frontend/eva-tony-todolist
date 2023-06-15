@@ -17,15 +17,15 @@ const useSendRequest = () => {
         headers: headers || {},
         body: JSON.stringify(body) || null,
       });
-      
-
-      const json = await response.json();
-      setData(json);
-
+     
       if (!response.ok) {
         throw new Error('Request Failed!');
       }
+      const json = await response.json();
+      setData(json);
+
     } catch (error) {
+      console.dir(error)
       setError(error.message);
     } finally {
       setIsLoadng(false);
