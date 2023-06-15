@@ -49,7 +49,6 @@ const TodoItem = ({
   const updateItemContent = (value, response) => {
     setContent(value)
     setUpdate(false)
-    console.log(response)
     onSelectedTodoList(response) //TODO : 서버에서 전체를 주기 때문에 이렇게 구현
   }
 
@@ -70,14 +69,32 @@ const TodoItem = ({
     }
   };
 
+  useEffect(()=> {
+    putIsDone();
+
+  }, [isDone])
+
+  const putIsDone = async () => {
+    await sendRequest({
+      url: `api/todo/${item.id}/`,
+      headers: { "Content-Type": "application/json" },
+      method: "PUT",
+      body: {
+        content: content,
+        is_done: isDone,
+      },
+    });
+
+    setUpdate(false) 
+   };
+
+   const handleIsDoneClick = (e) => {
+    e.stopPropagation();
+    setIsDone(!isDone);
+  }
 
   const updateItem = () => {
     setContent("")
-    console.log(item.content)
-
-    // let findItem = selectedTodoList?.find((selectedTodo) => selectedTodo.id === item.id);
-    // findItem.content = item.content;
-    // findItem.content = inputRef?.current?.value;
     onSelectedTodoList([...selectedTodoList]);
     setUpdate(true);
   };
@@ -95,7 +112,10 @@ const TodoItem = ({
 
       item.content = inputRef.current.value
       setContent(inputRef.current.value)
-      setUpdate(false)  };
+      setUpdate(false) 
+     };
+
+
 
 
   const isDoneIcon = isDone ? (
@@ -103,21 +123,13 @@ const TodoItem = ({
       className={styles.checkbox}
       size={"2rem"}
       color={"#735bf2"}
-      onClick={(e) => {
-        e.stopPropagation();
-        setIsDone(!isDone);
-        putIsDone();
-      }}
+      onClick={handleIsDoneClick}
     />
   ) : (
     <MdOutlineCheckBoxOutlineBlank
       size={"2rem"}
       color={"#735bf2"}
-      onClick={(e) => {
-        e.stopPropagation();
-        setIsDone(!isDone);
-        putIsDone();
-      }}
+      onClick={handleIsDoneClick}
     />
   );
 
@@ -143,7 +155,6 @@ const TodoItem = ({
         </>
       ) : (
         <form  onSubmit={handleBlurAndSubmit}>
-          {console.log(item)}
           <input
             className={styles.input}
             ref={inputRef}
