@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
+import useSendRequest from "@hooks/useSendRequest";
 import useHttp from "@hooks/useHttp";
 import styles from "@components/Todo/TodoItem.module.css";
 import parseDateToString from "@library/parseDateToString";
@@ -17,11 +18,10 @@ const TodoItem = ({
   selectedTodoList,
   selectedDate,
 }) => {
-  const { sendRequest } = useHttp(onSelectedTodoList);
-  const { sendRequest: putContent } = useHttp(); // setter가 매개변수로 없음
-  const { sendRequest: putIsDone } = useHttp(); // setter가 매개변수로 없음
-
-  let { id, is_done, content } = item;
+  const { data, sendRequest, isLoading, error } = useSendRequest(); 
+  const { sendRequest: putContent } = useSendRequest(); // setter가 매개변수로 없음
+  const { sendRequest: putIsDone } = useSendRequest(); // setter가 매개변수로 없음
+  let { id, is_done, content } = item; 
   const [isDone, setIsDone] = useState(is_done);
   const [update, setUpdate] = useState(false);
 
@@ -42,11 +42,11 @@ const TodoItem = ({
 
       onSelectedTodoList([...filteredTodoList]);
     } else {
-      item.content = value; // /Q. 어떻게 바꿔야 할지..?
+      // item.content = value; // /Q. 어떻게 바꿔야 할지..?
 
-      onSelectedTodoList([...selectedTodoList]);
+      // onSelectedTodoList([...selectedTodoList]);
       if (!update) {
-        postTodoItem(item);
+        postTodoItem(item, value);
       } else {
         putTodoItem();
       }
@@ -63,11 +63,10 @@ const TodoItem = ({
 
         onSelectedTodoList([...filteredTodoList]);
       } else {
-        item.content = value;
 
-        onSelectedTodoList([...selectedTodoList]);
+        // onSelectedTodoList([...selectedTodoList]);
         if (!update) {
-          postTodoItem(item);
+          postTodoItem(item, value);
         } else {
           putTodoItem();
         }
@@ -75,17 +74,27 @@ const TodoItem = ({
     }
   };
 
-  const postTodoItem = async (item) => {
+  const updateItemContent = async (value) => {
+    if (!error) {
+      console.log(error)
+        item.content = value;
+      }
+  }
+
+  const postTodoItem = async (item, value) => {
     await sendRequest({
-      url: `api/todo/`,
+      url: `api/todi`,
       headers: { "Content-Type": "application/json" },
       method: "POST",
       body: {
         date: parseDateToString(selectedDate),
-        todo_items: [{ content: item.content, is_done: false }],
+        todo_items: [{ content: value, is_done: false }],
       },
     });
+
+    await updateItemContent(value);
   };
+
 
   const putTodoItem = async () => {
     await putContent({
@@ -104,8 +113,8 @@ const TodoItem = ({
       size={"2rem"}
       color={"#735bf2"}
       onClick={(e) => {
-        setIsDone(!isDone);
         e.stopPropagation();
+        setIsDone(!isDone);
         sendIsDone();
       }}
     />
@@ -128,6 +137,7 @@ const TodoItem = ({
       method: "PUT",
       body: {
         is_done: isDone,
+        content : content
       },
     });
   };
