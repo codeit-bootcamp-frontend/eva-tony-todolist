@@ -16,10 +16,8 @@ const TodoItem = ({
   selectedTodoList,
   selectedDate,
 }) => {
-  const { sendRequest: putContent } = useSendRequest(); // setter가 매개변수로 없음
-  const { sendRequest: putIsDone } = useSendRequest(); // setter가 매개변수로 없음
   const [isDone, setIsDone] = useState(item.is_done);
-  const [content2, setContent] = useState(item.content)
+  const [content, setContent] = useState(item.content)
   const [update, setUpdate] = useState(false);
 
   const inputRef = useRef();
@@ -70,16 +68,28 @@ const TodoItem = ({
   };
 
 
-  const putTodoItem = async () => {
-    await putContent({
-      url: `api/todo/${item.id}/`,
-      headers: { "Content-Type": "application/json" },
-      method: "PUT",
-      body: {
-        content: inputRef.current.value,
-      },
-    });
+  const updateItem = () => {
+    setContent("")
+    console.log(item)
+    let findItem = selectedTodoList?.find((selectedTodo) => selectedTodo.id === item.id);
+    findItem.content = inputRef?.current?.value;
+    onSelectedTodoList([...selectedTodoList]);
+    setUpdate(true);
   };
+
+  const putTodoItem = async () => {
+      await sendRequest({
+        url: `api/todo/${item.id}/`,
+        headers: { "Content-Type": "application/json" },
+        method: "PUT",
+        body: {
+          content: inputRef.current.value,
+          is_done: isDone,
+        },
+      });
+      updateItemContent(inputRef.current.value)
+  };
+
 
   const isDoneIcon = isDone ? (
     <MdOutlineCheckBox
@@ -89,7 +99,7 @@ const TodoItem = ({
       onClick={(e) => {
         e.stopPropagation();
         setIsDone(!isDone);
-        sendIsDone();
+        putIsDone();
       }}
     />
   ) : (
@@ -99,41 +109,23 @@ const TodoItem = ({
       onClick={(e) => {
         e.stopPropagation();
         setIsDone(!isDone);
-        sendIsDone();
+        putIsDone();
       }}
     />
   );
 
-  const sendIsDone = () => {
-    putIsDone({
-      url: `api/todo/${item.id}/`,
-      headers: { "Content-Type": "application/json" },
-      method: "PUT",
-      body: {
-        is_done: isDone,
-        content : content
-      },
-    });
-  };
 
-  const updateItem = () => {
-    item.content = "";
-    let findItem = selectedTodoList?.find((selectedTodo) => selectedTodo.id === item.id);
-    findItem.content = inputRef?.current?.value;
-    onSelectedTodoList([...selectedTodoList]);
-    setUpdate(true);
-  };
 
   return (
     <div className={styles.item} style={{ background: "#fff" }}>
-      {content2 ? (
+      {content ? (
         <>
           <div className={styles.left}>
             {isDoneIcon}
             {!isDone ? (
-              <span className={styles.content}>{content2}</span>
+              <span className={styles.content}>{content}</span>
             ) : (
-              <span className={styles["is-done"]}>{content2}</span>
+              <span className={styles["is-done"]}>{content}</span>
             )}
           </div>
           <SlPencil
@@ -144,12 +136,12 @@ const TodoItem = ({
         </>
       ) : (
         <form  onSubmit={handleBlurAndSubmit}>
-        <input
-          className={styles.input}
-          ref={inputRef}
-          onBlur={handleBlurAndSubmit} 
-          placeholder="할 일을 입력해주세요."
-        />
+          <input
+            className={styles.input}
+            ref={inputRef}
+            onBlur={handleBlurAndSubmit} 
+            placeholder="할 일을 입력해주세요."
+          />
         </form>
       )}
     </div>
