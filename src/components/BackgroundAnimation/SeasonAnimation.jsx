@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import PetalImg from "@assets/petal.svg";
 // 벚꽃 잎 컴포넌트
-function PetalAnimation({ canvasWidth, canvasHeight }) {
+function SeasonAnimation({ canvasWidth, canvasHeight }) {
   const petalRef = useRef(null);
 
   // 벚꽃 잎의 상태를 관리합니다.
@@ -57,4 +57,4 @@ function PetalAnimation({ canvasWidth, canvasHeight }) {
   );
 }
 
-export default PetalAnimation;
+export default SeasonAnimation;

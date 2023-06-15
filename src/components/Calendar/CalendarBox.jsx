@@ -1,8 +1,8 @@
 import React, { useRef, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import Calendar from "react-calendar";
-import "@components/CalendarBox.css";
-import "@components/Calendar.css";
+import "@components/Calendar/CalendarBox.css";
+import "@components/Calendar/Calendar.css";
 import moment from "moment";
 
 const CalendarBox = ({ dotDates, selectedDate, onSelectedDate }) => {

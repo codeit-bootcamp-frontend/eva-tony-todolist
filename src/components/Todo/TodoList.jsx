@@ -1,28 +1,26 @@
-import React from 'react';
-import styles from '@components/TodoList.module.css';
-import TodoItem from '@components/TodoItem';
+import styles from '@components/Todo/TodoList.module.css';
+import TodoItem from '@components/Todo/TodoItem';
 
 // Import the react-swipe-to-delete-component
 import SwipeToDelete from 'react-swipe-to-delete-component';
 // // Import styles of the react-swipe-to-delete-component
 import 'react-swipe-to-delete-component/dist/swipe-to-delete.css';
 import useHttp from '@hooks/useHttp';
-import parseDateToString from '@library/parseDateToString';
+import useSendRequest  from '@hooks/useSendRequest ';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+
 const TodoList = ({
   selectedTodoList,
   onSelectedTodoList,
   selectedDate,
-  getDotDates,
 }) => {
-  const { sendRequest: deleteItem } = useHttp();
+  const { sendRequest: deleteItem } = useSendRequest();
 
-  const todoItemDeleteHanlder = (item) => {
+  const todoItemDeleteHandler = (item) => {
     return () => {
       const filteredTodoList = selectedTodoList.filter(
-        (todo) => todo.content !== item
+        (todo) => todo.id !== item.id
       );
-
       onSelectedTodoList(filteredTodoList);
       return deleteItem({ url: `api/todo/${item.id}/`, method: 'DELETE' });
     };
@@ -30,9 +28,11 @@ const TodoList = ({
 
   const handleChange = (result) => {
     if (!result.destination) return;
+    
     const items = [...selectedTodoList];
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
+    
     onSelectedTodoList(items);
   };
 
@@ -62,7 +62,7 @@ const TodoList = ({
                       >
                         <SwipeToDelete
                           key={item.id ? item.id : new Date().getTime()}
-                          onDelete={todoItemDeleteHanlder(item)}
+                          onDelete={todoItemDeleteHandler(item)}
                         >
                           <TodoItem
                             key={item.id ? item.id : new Date().getTime()}

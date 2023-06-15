@@ -1,26 +1,26 @@
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-const useHttp = (applyData) => {
+const useHttp = ({url, method, headers, body}) => {
   const [isLoading, setIsLoadng] = useState(false);
   const [error, setError] = useState(null);
-  // const [data, setData] = useState([]);
+  const [data, setData] = useState([]);
 
-  const sendRequest = useCallback(async (requestConfig) => {
+  const sendRequest = useCallback(async () => {
     setIsLoadng(true);
     setError(null);
 
     try {
-      const response = await fetch(`${BASE_URL}${requestConfig.url}`, {
-        method: requestConfig.method || 'GET',
-        headers: requestConfig.headers || {},
-        body: JSON.stringify(requestConfig.body) || null,
+      const response = await fetch(`${BASE_URL}${url}`, {
+        method: method || 'GET',
+        headers: headers || {},
+        body: JSON.stringify(body) || null,
       });
 
       const json = await response.json();
-      applyData(json);
-
+      setData(json);
+3
       if (!response.ok) {
         throw new Error('Request Failed!');
       }
@@ -29,12 +29,15 @@ const useHttp = (applyData) => {
     } finally {
       setIsLoadng(false);
     }
-  }, []);
+  }, [url, method, headers, body]);
+
+  useEffect(() => {sendRequest()}, [url, method, headers, body, sendRequest])
 
   return {
+    data,
+    setData,
     isLoading,
     error,
-    sendRequest,
   };
 };
 

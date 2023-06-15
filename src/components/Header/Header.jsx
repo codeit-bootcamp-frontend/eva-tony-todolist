@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "@components/Header.module.css";
+import styles from "@components/Header/Header.module.css";
 import CodoitLogo from "@assets/codoit-logo.svg";
 
 const Header = () => {
