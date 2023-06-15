@@ -1,12 +1,10 @@
-import React, { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import useSendRequest from "@hooks/useSendRequest";
-import useHttp from "@hooks/useHttp";
 import styles from "@components/Todo/TodoItem.module.css";
 import parseDateToString from "@library/parseDateToString";
-// Import styles of the react-swipe-to-delete-component
 import "react-swipe-to-delete-component/dist/swipe-to-delete.css";
 import { SlPencil } from "react-icons/Sl";
-
+import sendRequest from "@library/sendRequest";
 import {
   MdOutlineCheckBox,
   MdOutlineCheckBoxOutlineBlank,
@@ -18,11 +16,10 @@ const TodoItem = ({
   selectedTodoList,
   selectedDate,
 }) => {
-  const { data, sendRequest, isLoading, error } = useSendRequest(); 
   const { sendRequest: putContent } = useSendRequest(); // setter가 매개변수로 없음
   const { sendRequest: putIsDone } = useSendRequest(); // setter가 매개변수로 없음
-  let { id, is_done, content } = item; 
-  const [isDone, setIsDone] = useState(is_done);
+  const [isDone, setIsDone] = useState(item.is_done);
+  const [content2, setContent] = useState(item.content)
   const [update, setUpdate] = useState(false);
 
   const inputRef = useRef();
@@ -31,10 +28,11 @@ const TodoItem = ({
     if (inputRef.current) {
       inputRef.current.focus();
     }
-  }, [content]);
+  }, [item.content]);
 
-  const handleBlur = (event) => {
-    const { value } = event.target;
+  const handleBlurAndSubmit = (event) => {
+    event.preventDefault()
+    const { value } = inputRef.current;
     if (value.trim() === "") {
       const filteredTodoList = selectedTodoList.filter(
         (todo) => todo.content !== ""
@@ -42,63 +40,39 @@ const TodoItem = ({
 
       onSelectedTodoList([...filteredTodoList]);
     } else {
-      // item.content = value; // /Q. 어떻게 바꿔야 할지..?
-
-      // onSelectedTodoList([...selectedTodoList]);
       if (!update) {
-        postTodoItem(item, value);
+        postTodoItem(value);
       } else {
         putTodoItem();
       }
     }
   };
 
-  const handleEnter = (e) => {
-    if (e.key === "Enter") {
-      const { value } = e.target;
-      if (value.trim() === "") {
-        const filteredTodoList = selectedTodoList.filter(
-          (todo) => todo.content !== ""
-        );
-
-        onSelectedTodoList([...filteredTodoList]);
-      } else {
-
-        // onSelectedTodoList([...selectedTodoList]);
-        if (!update) {
-          postTodoItem(item, value);
-        } else {
-          putTodoItem();
-        }
-      }
-    }
-  };
-
-  const updateItemContent = async (value) => {
-    if (!error) {
-      console.log(error)
-        item.content = value;
-      }
+  const updateItemContent = (value) => {
+    setContent(value)
   }
 
-  const postTodoItem = async (item, value) => {
-    await sendRequest({
-      url: `api/todi`,
-      headers: { "Content-Type": "application/json" },
-      method: "POST",
-      body: {
-        date: parseDateToString(selectedDate),
-        todo_items: [{ content: value, is_done: false }],
-      },
-    });
-
-    await updateItemContent(value);
+  const postTodoItem = async (value) => {
+    try {
+     const response = await sendRequest({
+        url: `api/todo/`,
+        headers: { "Content-Type": "application/json" },
+        method: "POST",
+        body: {
+          date: parseDateToString(selectedDate),
+          todo_items: [{ content: value, is_done: false }],
+        },
+      });
+       updateItemContent(value)
+    } catch(err) {
+      console.log(err)
+    }
   };
 
 
   const putTodoItem = async () => {
     await putContent({
-      url: `api/todo/${id}/`,
+      url: `api/todo/${item.id}/`,
       headers: { "Content-Type": "application/json" },
       method: "PUT",
       body: {
@@ -132,7 +106,7 @@ const TodoItem = ({
 
   const sendIsDone = () => {
     putIsDone({
-      url: `api/todo/${id}/`,
+      url: `api/todo/${item.id}/`,
       headers: { "Content-Type": "application/json" },
       method: "PUT",
       body: {
@@ -143,8 +117,8 @@ const TodoItem = ({
   };
 
   const updateItem = () => {
-    content = "";
-    let findItem = selectedTodoList?.find((item) => item.id === id);
+    item.content = "";
+    let findItem = selectedTodoList?.find((selectedTodo) => selectedTodo.id === item.id);
     findItem.content = inputRef?.current?.value;
     onSelectedTodoList([...selectedTodoList]);
     setUpdate(true);
@@ -152,14 +126,14 @@ const TodoItem = ({
 
   return (
     <div className={styles.item} style={{ background: "#fff" }}>
-      {content ? (
+      {content2 ? (
         <>
           <div className={styles.left}>
             {isDoneIcon}
             {!isDone ? (
-              <span className={styles.content}>{content}</span>
+              <span className={styles.content}>{content2}</span>
             ) : (
-              <span className={styles["is-done"]}>{content}</span>
+              <span className={styles["is-done"]}>{content2}</span>
             )}
           </div>
           <SlPencil
@@ -169,13 +143,14 @@ const TodoItem = ({
           />
         </>
       ) : (
+        <form  onSubmit={handleBlurAndSubmit}>
         <input
           className={styles.input}
           ref={inputRef}
-          onBlur={handleBlur}
-          onKeyPress={handleEnter}
+          onBlur={handleBlurAndSubmit} 
           placeholder="할 일을 입력해주세요."
         />
+        </form>
       )}
     </div>
   );

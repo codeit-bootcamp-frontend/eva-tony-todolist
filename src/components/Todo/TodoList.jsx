@@ -6,7 +6,7 @@ import SwipeToDelete from 'react-swipe-to-delete-component';
 // // Import styles of the react-swipe-to-delete-component
 import 'react-swipe-to-delete-component/dist/swipe-to-delete.css';
 import useHttp from '@hooks/useHttp';
-import useSendRequest  from '@hooks/useSendRequest ';
+import useSendRequest from '@hooks/useSendRequest';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
 const TodoList = ({
