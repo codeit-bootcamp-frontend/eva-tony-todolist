@@ -1,5 +1,4 @@
 import { useRef, useEffect, useState } from "react";
-import useSendRequest from "@hooks/useSendRequest";
 import styles from "@components/Todo/TodoItem.module.css";
 import parseDateToString from "@library/parseDateToString";
 import "react-swipe-to-delete-component/dist/swipe-to-delete.css";
@@ -26,7 +25,7 @@ const TodoItem = ({
     if (inputRef.current) {
       inputRef.current.focus();
     }
-  }, [item.content]);
+  }, [item.content, update]);
 
   const handleBlurAndSubmit = (event) => {
     event.preventDefault()
@@ -46,8 +45,12 @@ const TodoItem = ({
     }
   };
 
-  const updateItemContent = (value) => {
+
+  const updateItemContent = (value, response) => {
     setContent(value)
+    setUpdate(false)
+    console.log(response)
+    onSelectedTodoList(response) //TODO : 서버에서 전체를 주기 때문에 이렇게 구현
   }
 
   const postTodoItem = async (value) => {
@@ -61,7 +64,7 @@ const TodoItem = ({
           todo_items: [{ content: value, is_done: false }],
         },
       });
-       updateItemContent(value)
+       updateItemContent(value, response)
     } catch(err) {
       console.log(err)
     }
@@ -70,9 +73,11 @@ const TodoItem = ({
 
   const updateItem = () => {
     setContent("")
-    console.log(item)
-    let findItem = selectedTodoList?.find((selectedTodo) => selectedTodo.id === item.id);
-    findItem.content = inputRef?.current?.value;
+    console.log(item.content)
+
+    // let findItem = selectedTodoList?.find((selectedTodo) => selectedTodo.id === item.id);
+    // findItem.content = item.content;
+    // findItem.content = inputRef?.current?.value;
     onSelectedTodoList([...selectedTodoList]);
     setUpdate(true);
   };
@@ -87,8 +92,10 @@ const TodoItem = ({
           is_done: isDone,
         },
       });
-      updateItemContent(inputRef.current.value)
-  };
+
+      item.content = inputRef.current.value
+      setContent(inputRef.current.value)
+      setUpdate(false)  };
 
 
   const isDoneIcon = isDone ? (
@@ -136,11 +143,13 @@ const TodoItem = ({
         </>
       ) : (
         <form  onSubmit={handleBlurAndSubmit}>
+          {console.log(item)}
           <input
             className={styles.input}
             ref={inputRef}
             onBlur={handleBlurAndSubmit} 
             placeholder="할 일을 입력해주세요."
+            defaultValue={item.content}
           />
         </form>
       )}
