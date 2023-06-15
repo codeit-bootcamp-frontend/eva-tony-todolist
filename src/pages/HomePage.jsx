@@ -12,25 +12,16 @@ import { IoIosShareAlt } from "react-icons/Io";
 import LoginModal from "@components/LoginModal/LoginModal";
 
 const HomePage = () => {
-  const [dotDates, setDotDates] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [selectedTodoList, setSelectedTodoList] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(true);
 
-  const { sendRequest: getDotDates } = useHttp(setDotDates);
-  const { sendRequest: getSelectedTodoList } = useHttp(setSelectedTodoList);
+  const { data:dotDates } = useHttp({
+    url: `api/dotdates/`,
+  });
 
-  useEffect(() => {
-    getSelectedTodoList({
-      url: `api/todo/?date=${parseDateToString(selectedDate)}`,
-    });
-  }, [selectedDate]);
-
-  useEffect(() => {
-    getDotDates({
-      url: `api/dotdates/`,
-    });
-  }, [selectedTodoList]);
+  const { data: selectedTodoList, setData: setSelectedTodoList } = useHttp({
+    url: `api/todo/?date=${parseDateToString(selectedDate)}`,
+  });
 
   const onConfirm = () => {
     setIsLoggedIn(true);
@@ -58,7 +49,6 @@ const HomePage = () => {
           selectedTodoList={selectedTodoList}
           onSelectedTodoList={setSelectedTodoList}
           selectedDate={selectedDate}
-          getDotDates={getDotDates}
         />
         <div className={styles["button-box"]}>
           <AddButton
